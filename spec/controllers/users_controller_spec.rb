@@ -29,17 +29,17 @@ RSpec.describe UsersController, type: :controller do
   # User. As you add validations to User, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    { name: "user1", email: "user1@sample.com", password: "password1", password_confirmation: "password1" }
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    { name: "", email: "user1@sample.com", password: "password1", password_confirmation: "password1" }
   }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # UsersController. Be sure to keep this updated too.
-  let(:valid_session) { {} }
+  let(:valid_session) { { user_id: 1 } }
 
   describe "GET #index" do
     it "returns a success response" do
@@ -97,14 +97,14 @@ RSpec.describe UsersController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {name: "user2", email: "user1@sample.com", password: "password1", password_confirmation: "password1"}
       }
 
       it "updates the requested user" do
         user = User.create! valid_attributes
         put :update, params: {id: user.to_param, user: new_attributes}, session: valid_session
         user.reload
-        skip("Add assertions for updated state")
+        expect(user.name).to eq "user2"
       end
 
       it "redirects to the user" do
@@ -135,6 +135,46 @@ RSpec.describe UsersController, type: :controller do
       user = User.create! valid_attributes
       delete :destroy, params: {id: user.to_param}, session: valid_session
       expect(response).to redirect_to(users_url)
+    end
+  end
+
+  describe "GET #login" do
+    it "returns a success response" do
+      get :login, params: {}, session: valid_session
+      expect(response).to be_success
+    end
+  end
+
+  describe "POST #login" do
+    before do
+      @user = User.create! valid_attributes
+    end
+
+    context "with valid params" do
+      before do
+        post :login, params: { email: "user1@sample.com", password: "password1" }
+      end
+
+      it "set a correct user_id to session" do
+        expect(session[:user_id]).to eq @user.id
+      end
+    end
+
+    context "with invalid params" do
+      before do
+        post :login, params: { email: "user1@sample.com", password: "password2" }
+      end
+
+      it "can't set a user_id to session" do
+        expect(session[:user_id]).to eq nil
+      end
+    end
+
+    context "when user has already logged in" do
+      it "redirects to top page" do
+        post :login, params: { email: "user1@sample.com", password: "password2" }, session: valid_session
+        expect(response).to redirect_to(root_path)
+      end
     end
   end
 

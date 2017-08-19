@@ -6,4 +6,6 @@ Rails.application.routes.draw do
   post '/login' => 'users#login'
   post '/logout' => 'users#logout'
 
+  root 'users#index' #仮にroot_pathを設定
+
 end

@@ -1,0 +1,32 @@
+<h1>ログイン</h1>
+
+<%= form_tag　login_path do %>
+  <% if user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+      <% user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= label_tag :email %>
+    <%= text_field_tag :email %>
+  </div>
+
+  <div class="field">
+    <%= label_tag :password %>
+    <%= text_field_tag :password %>
+  </div>
+
+  <div class="actions">
+    <%= submit_tag 'ログイン' %>
+  </div>
+
+<% end %>
+
+<%= link_to '新規登録', signup_path %>
