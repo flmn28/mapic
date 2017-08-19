@@ -61,6 +61,25 @@ class UsersController < ApplicationController
     end
   end
 
+  def login_form
+    if session[:user_id]
+      flash[:notice] = "既にログインしています"
+      redirect_to root_path
+    end
+  end
+
+  def login
+    user = User.find_by(email: params[:email])
+    if user.authenticate(params[:password])
+      session[:user_id] = user.id
+      flash[:notice] = "ログインに成功しました"
+      redirect_to root_path
+    else
+      flash[:notice] = "メールアドレスまたはパスワードが間違っています"
+      render :login_form
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user

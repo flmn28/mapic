@@ -139,9 +139,18 @@ RSpec.describe UsersController, type: :controller do
   end
 
   describe "GET #login" do
-    it "returns a success response" do
-      get :login, params: {}, session: valid_session
-      expect(response).to be_success
+    context "when user is not logged in" do
+      it "returns a success response" do
+        get :login_form, params: {}
+        expect(response).to be_success
+      end
+    end
+
+    context "when user has already logged in" do
+      it "redirects to top page" do
+        get :login_form, params: {}, session: valid_session
+        expect(response).to redirect_to(root_path)
+      end
     end
   end
 
@@ -158,6 +167,10 @@ RSpec.describe UsersController, type: :controller do
       it "set a correct user_id to session" do
         expect(session[:user_id]).to eq @user.id
       end
+
+      it "redirects to top page" do
+        expect(response).to redirect_to(root_path)
+      end
     end
 
     context "with invalid params" do
@@ -168,12 +181,9 @@ RSpec.describe UsersController, type: :controller do
       it "can't set a user_id to session" do
         expect(session[:user_id]).to eq nil
       end
-    end
 
-    context "when user has already logged in" do
-      it "redirects to top page" do
-        post :login, params: { email: "user1@sample.com", password: "password2" }, session: valid_session
-        expect(response).to redirect_to(root_path)
+      it "render login_form" do
+        expect(response).to render_template(:login_form)
       end
     end
   end
