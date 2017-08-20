@@ -70,7 +70,7 @@ class UsersController < ApplicationController
 
   def login
     user = User.find_by(email: params[:email])
-    if user.authenticate(params[:password])
+    if user && user.authenticate(params[:password])
       session[:user_id] = user.id
       flash[:notice] = "ログインに成功しました"
       redirect_to root_path
@@ -78,6 +78,11 @@ class UsersController < ApplicationController
       flash[:notice] = "メールアドレスまたはパスワードが間違っています"
       render :login_form
     end
+  end
+
+  def logout
+    session[:user_id] = nil
+    redirect_to login_path
   end
 
   private

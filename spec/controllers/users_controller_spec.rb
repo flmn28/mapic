@@ -188,4 +188,18 @@ RSpec.describe UsersController, type: :controller do
     end
   end
 
+  describe "POST #logout" do
+    before do
+      post :logout, params: {}, session: valid_session
+    end
+
+    it "set nil to session[user_id]" do
+      expect(session[:user_id]).to eq nil
+    end
+
+    it "redirect to login form" do
+      expect(response).to redirect_to(login_path)
+    end
+  end
+
 end
