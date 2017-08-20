@@ -1,15 +1,17 @@
+<p id="notice"><%= notice %></p>
+
 <h1>ログイン</h1>
 
 <%= form_tag login_path do %>
 
   <div class="field">
     <%= label_tag :email %>
-    <%= text_field_tag :email %>
+    <%= text_field_tag :email, params[:email] %>
   </div>
 
   <div class="field">
     <%= label_tag :password %>
-    <%= text_field_tag :password %>
+    <%= password_field_tag :password %>
   </div>
 
   <div class="actions">
@@ -18,4 +20,4 @@
 
 <% end %>
 
-<%= link_to '新規登録', signup_path %>
+<%= link_to '新規登録', signup_path, class: "btn btn-default" %>

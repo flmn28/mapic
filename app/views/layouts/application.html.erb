@@ -9,6 +9,12 @@
   </head>
 
   <body>
+    <% if logged_in? %>
+      <%= current_user.name %>さんがログインしています。
+      <%= link_to 'ログアウト', logout_path, method: :post %>
+    <% else %>
+      ログインしていません。
+    <% end %>
     <%= yield %>
   </body>
 </html>
