@@ -11,5 +11,33 @@ require 'rails_helper'
 #   end
 # end
 RSpec.describe UsersHelper, type: :helper do
-  pending "add some examples to (or delete) #{__FILE__}"
+
+  before do
+    user :create, { id: 1 }
+  end
+
+  describe "current_user" do
+    context "when user is logged in" do
+      xit "returns correct user instance" do
+      end
+    end
+
+    context "when user is not logged in" do
+      xit "has nil" do
+      end
+    end
+  end
+
+  describe "logged_in?" do
+    context "when user is logged in" do
+      xit "returns true" do
+      end
+    end
+
+    context "when user is not logged in" do
+      xit "returns false" do
+      end
+    end
+  end
+
 end
