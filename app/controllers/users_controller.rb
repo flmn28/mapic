@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :redirect_to_top_when_logged_in, only: [:new, :login_form, :login]
+  before_action :authenticated_user, except: [:new, :login_form, :login]
 
   # GET /users
   # GET /users.json
@@ -62,10 +64,6 @@ class UsersController < ApplicationController
   end
 
   def login_form
-    if session[:user_id]
-      flash[:notice] = "既にログインしています"
-      redirect_to root_path
-    end
   end
 
   def login
@@ -94,5 +92,12 @@ class UsersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
       params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    end
+
+    def redirect_to_top_when_logged_in
+      if session[:user_id]
+        flash[:notice] = "既にログインしています"
+        redirect_to root_path
+      end
     end
 end

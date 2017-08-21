@@ -1,3 +1,16 @@
-// Place all the styles related to the users controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+// login, signup
+.panel {
+  max-width: 480px;
+  min-width: 240px;
+  margin: 0 auto;
+  input[type="submit"].btn-block {
+    width: 160px;
+    margin: 0 auto;
+  }
+}
+
+.btn-change-form {
+  max-width: 480px;
+  min-width: 240px;
+  margin: 0 auto;
+}

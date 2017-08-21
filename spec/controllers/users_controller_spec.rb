@@ -58,9 +58,18 @@ RSpec.describe UsersController, type: :controller do
   end
 
   describe "GET #new" do
-    it "returns a success response" do
-      get :new, params: {}, session: valid_session
-      expect(response).to be_success
+    context "when user is not logged in" do
+      it "returns a success response" do
+        get :new, params: {}
+        expect(response).to be_success
+      end
+    end
+
+    context "when user is logged in" do
+      it "redirects to top page" do
+        get :new, params: {}, session: valid_session
+        expect(response).to redirect_to(root_path)
+      end
     end
   end
 
@@ -146,7 +155,7 @@ RSpec.describe UsersController, type: :controller do
       end
     end
 
-    context "when user has already logged in" do
+    context "when user is logged in" do
       it "redirects to top page" do
         get :login_form, params: {}, session: valid_session
         expect(response).to redirect_to(root_path)
@@ -197,8 +206,18 @@ RSpec.describe UsersController, type: :controller do
       expect(session[:user_id]).to eq nil
     end
 
-    it "redirect to login form" do
+    it "redirects to login form" do
       expect(response).to redirect_to(login_path)
+    end
+  end
+
+# root_pathが変わったらテストも変える
+  describe "authentication" do
+    context "when user is not logged in" do
+      it "redirect to login when access to top page" do
+        get :index, params: {}
+        expect(response).to redirect_to(login_path)
+      end
     end
   end
 
