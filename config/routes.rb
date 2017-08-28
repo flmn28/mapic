@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'map/index'
+
   resources :users, except: :new
   get '/signup' => 'users#new'
   get '/login' => 'users#login_form'
