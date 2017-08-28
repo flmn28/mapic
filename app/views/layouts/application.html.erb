@@ -9,26 +9,23 @@
   </head>
 
   <body>
-    <!-- 仮のheader -->
-    <% if logged_in? %>
-      <nav class="navbar navbar-default navbar-fixed-top">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <button class="navbar-toggle" data-toggle="collapse" data-target=".target">
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <%= link_to "MapLog", root_path, class: "navbar-brand" %>
-          </div>
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button class="navbar-toggle" data-toggle="collapse" data-target=".target">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <%= link_to "MapLog", root_path, class: "navbar-brand" %>
+        </div>
 
-          <div class="collapse navbar-collapse target">
-            <ul class="nav navbar-nav navbar-right">
-              <li><%= link_to "マイページ", user_path(current_user.id) %></li>
-              <li><%= link_to "グループページ", users_path %></li>
-              <li><%= link_to "ログアウト", logout_path, method: :post %></li>
-
-              <!-- <li class="dropdown">
+        <div class="collapse navbar-collapse target">
+          <ul class="nav navbar-nav navbar-right">
+            <% if logged_in? %>
+              <li><%= link_to "みんなのMAP", user_path(current_user.id) %></li>
+              <li><%= link_to "マイページ", users_path %></li>
+              <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown">
                   ユーザー設定 <span class="caret"></span>
                 </a>
@@ -36,13 +33,15 @@
                   <li><%= link_to "アカウント編集", edit_user_path(current_user.id) %></li>
                   <li><%= link_to "ログアウト", logout_path, method: :post %></li>
                 </ul>
-              </li> -->
-            </ul>
-          </div>
+              </li>
+              <% else %>
+                <li><%= link_to "新規登録", signup_path %></li>
+                <li><%= link_to "ログイン", login_path %></li>
+              <% end %>
+          </ul>
         </div>
-      </nav>
-    <% end %>
-    <!-- 仮のheaderここまで -->
+      </div>
+    </nav>
 
     <div class="container">
       <%= yield %>
