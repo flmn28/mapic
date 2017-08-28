@@ -1,10 +1,10 @@
 FactoryGirl.define do
   factory :location do
-    title "MyString"
-    comment "MyText"
-    address "MyString"
-    latitude 1.5
-    longitude 1.5
+    title "location1"
+    comment "comment1"
+    address "address1"
+    latitude 36
+    longitude 137
     user_id 1
   end
 end
