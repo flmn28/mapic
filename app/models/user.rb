@@ -8,4 +8,6 @@ class User < ApplicationRecord
                     format: { with: VALID_EMAIL_REGEX }
   VALID_PASSWORD_REGEX = /\A[a-zA-Z0-9]+\z/i
   validates :password, length: { minimum: 6 }, format: { with: VALID_PASSWORD_REGEX }
+
+  # has_many :locations
 end
