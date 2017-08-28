@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :locations
   get 'map/index'
 
   resources :users, except: :new
