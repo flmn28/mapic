@@ -20,5 +20,20 @@
     alert('対応していません！');
   }
 
+  <% @locations.each_with_index do |location, i| %>
+    var marker<%= i %> = new google.maps.Marker({
+      position: new google.maps.LatLng(<%= location.latitude %>, <%= location.longitude %>),
+      map: map
+    });
+
+    google.maps.event.addListener(marker<%= i %>, 'click', function() {
+      var infoWindow = new google.maps.InfoWindow({
+        content: '<%= location.title %><br><%= link_to '詳細を見る', location_path(location.id) %>'
+      });
+      infoWindow.open(map, marker<%= i %>);
+    });
+  <% end %>
+
+  
 
 </script>
