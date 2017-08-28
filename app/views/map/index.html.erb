@@ -34,6 +34,32 @@
     });
   <% end %>
 
-  
+  var geocoder = new google.maps.Geocoder();
+  var newMarker;
+  google.maps.event.addListener(map, 'click', function(event) {
+    if (newMarker != undefined) {
+      newMarker.setMap(null);
+    }
+    newMarker = new google.maps.Marker({
+      position: event.latLng,
+      map: map
+    });
+    geocoder.geocode({
+      'latLng': event.latLng
+    }, function(result, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        var infoWindow = new google.maps.InfoWindow({
+          content: result[0].formatted_address + '<br><a href="/locations/new?address=' + result[0].formatted_address + '&latitude=' + event.latLng.lat() + '&longitude=' + event.latLng.lng() + '">この場所のオブジェクトを作成する</a>'
+        });
+        infoWindow.open(map, newMarker);
+        google.maps.event.addListener(infoWindow, 'closeclick', function() {
+          newMarker.setMap(null);
+        });
+      } else {
+        newMarker.setMap(null);
+        alert('選択した位置情報を取得できません');
+      }
+    });
+  });
 
 </script>
