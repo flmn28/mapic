@@ -6,4 +6,6 @@ class Location < ApplicationRecord
   validates :longitude, presence: true
 
   belongs_to :user
+  has_many :locations_tags
+  has_many :tags, through: :locations_tags
 end

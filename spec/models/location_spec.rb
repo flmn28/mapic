@@ -53,11 +53,22 @@ RSpec.describe Location, type: :model do
 
   describe "association" do
     before do
-      @location = Location.new(title: "title1", comment: "comment1", address: "address1",
-                               latitude: 36, longitude: 137, user_id: 1)
+      @user = create :user, id: 1
+      @location = create :location, id: 1
+      @tag1 = create :tag, id: 1
+      @tag2 = create :tag, id: 2, name: "tag2"
+      @tag3 = create :tag, id: 3, name: "tag3"
+
+      create :locations_tag, id: 1, location_id: 1, tag_id: 1
+      create :locations_tag, id: 2, location_id: 1, tag_id: 2
     end
+
     it "belongs to a user" do
       expect(@location.user).to eq @user
+    end
+
+    it "has correct tags" do
+      expect(@location.tags.count).to eq 2
     end
   end
 end
