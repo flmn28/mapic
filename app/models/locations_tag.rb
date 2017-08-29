@@ -1,0 +1,2 @@
+class LocationsTag < ApplicationRecord
+end
