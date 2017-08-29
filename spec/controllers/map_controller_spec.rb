@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe MapController, type: :controller do
 
   before do
+    create :user, id: 1
     @location1 = create :location, id: 1
     @location2 = create :location, id: 2, latitude: 37, longitude: 138
   end

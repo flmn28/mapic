@@ -96,6 +96,16 @@ RSpec.describe LocationsController, type: :controller do
         expect(assigns(:location).user_id).to eq 1
       end
 
+      it "create correct locations_tags" do
+        create :tag, id: 1
+        create :tag, id: 2
+        create :tag, id: 3
+        post :create, params: {location: valid_attributes, scenery: true, nature: true}, session: valid_session
+        expect(LocationsTag.count).to eq 2
+        expect(LocationsTag.first.tag_id).to eq 1
+        expect(LocationsTag.last.tag_id).to eq 3
+      end
+
       it "redirects to root" do
         post :create, params: {location: valid_attributes}, session: valid_session
         expect(response).to redirect_to(root_path)

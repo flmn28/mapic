@@ -24,6 +24,28 @@
         <%= f.text_area :comment, class: "form-control", rows: "4" %>
       </div>
 
+      <div class="form-group">
+        <label>Tags</label><br>
+        <label class="checkbox-inline">
+          <%= check_box_tag :scenery, true, false %> 風景
+        </label>
+        <label class="checkbox-inline">
+          <%= check_box_tag :building, true, false %> 建物
+        </label>
+        <label class="checkbox-inline">
+          <%= check_box_tag :nature, true, false %> 自然
+        </label>
+        <label class="checkbox-inline">
+          <%= check_box_tag :food, true, false %> 飲食
+        </label>
+        <label class="checkbox-inline">
+          <%= check_box_tag :amusement, true, false %> 娯楽
+        </label>
+        <label class="checkbox-inline">
+          <%= check_box_tag :others, true, false %> その他
+        </label>
+      </div>
+
       <%= f.hidden_field :address %>
       <%= f.hidden_field :latitude %>
       <%= f.hidden_field :longitude %>
