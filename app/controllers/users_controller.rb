@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   # 以下の2つには:createも追加
   before_action :redirect_to_top_when_logged_in, only: [:new, :login_form, :login]
-  before_action :authenticated_user, except: [:new, :login_form, :login]
+  before_action :authenticate_user, except: [:new, :login_form, :login]
 
   # GET /users
   # GET /users.json

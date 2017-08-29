@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   private
-    def authenticated_user
+    def authenticate_user
       unless session[:user_id]
         flash[:notice] = "ログインしてください"
         redirect_to login_path
