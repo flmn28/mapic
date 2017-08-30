@@ -1,5 +1,39 @@
-<h1>Map</h1>
-<div id="map" class="map-top"></div>
+
+<div class="row">
+  <h1>Map</h1>
+
+  <div class="col-sm-2 sort-locations">
+    <h4>絞り込む</h4>
+
+      <label class="checkbox-inline">
+        <%= check_box_tag :myself, true, false %> 自分の投稿
+      </label><br>
+      <label class="checkbox-inline">
+        <%= check_box_tag :scenery, true, false %> 風景
+      </label><br>
+      <label class="checkbox-inline">
+        <%= check_box_tag :building, true, false %> 建物
+      </label><br>
+      <label class="checkbox-inline">
+        <%= check_box_tag :nature, true, false %> 自然
+      </label><br>
+      <label class="checkbox-inline">
+        <%= check_box_tag :food, true, false %> 飲食
+      </label><br>
+      <label class="checkbox-inline">
+        <%= check_box_tag :amusement, true, false %> 娯楽
+      </label><br>
+      <label class="checkbox-inline">
+        <%= check_box_tag :others, true, false %> その他
+      </label>
+  </div>
+
+  <div class="col-sm-10">
+    <div id="map" class="map-top"></div>
+  </div>
+
+</div>
+
 
 <script>
   var latLng = new google.maps.LatLng(35.66, 139.69);
