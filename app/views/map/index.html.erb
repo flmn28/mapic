@@ -2,33 +2,37 @@
 <div class="row">
   <h1>Map</h1>
 
-  <div class="col-sm-2 sort-locations">
-    <h4>絞り込む</h4>
+  <div class="col-sm-2">
+    <div class=" panel panel-default">
+      <div class="panel-heading">絞り込む</div>
 
-      <label class="checkbox-inline">
-        <%= check_box_tag :myself, true, false %> 自分の投稿
-      </label><br>
-      <label class="checkbox-inline">
-        <%= check_box_tag :like, true, false %> 行ってみたい
-      </label><hr class="sort-horizon">
-      <label class="checkbox-inline">
-        <%= check_box_tag :scenery, true, false %> 風景
-      </label><br>
-      <label class="checkbox-inline">
-        <%= check_box_tag :building, true, false %> 建物
-      </label><br>
-      <label class="checkbox-inline">
-        <%= check_box_tag :nature, true, false %> 自然
-      </label><br>
-      <label class="checkbox-inline">
-        <%= check_box_tag :food, true, false %> 飲食
-      </label><br>
-      <label class="checkbox-inline">
-        <%= check_box_tag :amusement, true, false %> 娯楽
-      </label><br>
-      <label class="checkbox-inline">
-        <%= check_box_tag :others, true, false %> その他
-      </label>
+      <div class="panel-body">
+        <label class="checkbox-inline">
+          <%= check_box_tag :myself, true, false %> 自分の投稿
+        </label><br>
+        <label class="checkbox-inline">
+          <%= check_box_tag :like, true, false %> 行ってみたい
+        </label><hr class="sort-horizon">
+        <label class="checkbox-inline">
+          <%= check_box_tag :scenery, true, false %> 風景
+        </label><br>
+        <label class="checkbox-inline">
+          <%= check_box_tag :building, true, false %> 建物
+        </label><br>
+        <label class="checkbox-inline">
+          <%= check_box_tag :nature, true, false %> 自然
+        </label><br>
+        <label class="checkbox-inline">
+          <%= check_box_tag :food, true, false %> 飲食
+        </label><br>
+        <label class="checkbox-inline">
+          <%= check_box_tag :amusement, true, false %> 娯楽
+        </label><br>
+        <label class="checkbox-inline">
+          <%= check_box_tag :others, true, false %> その他
+        </label>
+      </div>
+    </div>
   </div>
 
   <div class="col-sm-10">
