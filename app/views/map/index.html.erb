@@ -4,33 +4,38 @@
 
   <div class="col-sm-2">
     <div class=" panel panel-default">
-      <div class="panel-heading">絞り込む</div>
+      <div class="panel-heading">オプション</div>
 
       <div class="panel-body">
-        <label class="checkbox-inline">
-          <%= check_box_tag :myself, true, false %> 自分の投稿
-        </label><br>
-        <label class="checkbox-inline">
-          <%= check_box_tag :like, true, false %> 行ってみたい
-        </label><hr class="sort-horizon">
-        <label class="checkbox-inline">
-          <%= check_box_tag :scenery, true, false %> 風景
-        </label><br>
-        <label class="checkbox-inline">
-          <%= check_box_tag :building, true, false %> 建物
-        </label><br>
-        <label class="checkbox-inline">
-          <%= check_box_tag :nature, true, false %> 自然
-        </label><br>
-        <label class="checkbox-inline">
-          <%= check_box_tag :food, true, false %> 飲食
-        </label><br>
-        <label class="checkbox-inline">
-          <%= check_box_tag :amusement, true, false %> 娯楽
-        </label><br>
-        <label class="checkbox-inline">
-          <%= check_box_tag :others, true, false %> その他
-        </label>
+        <%= form_tag root_path do %>
+          <label class="checkbox-inline">
+            <%= check_box_tag :myself, true, false %> 自分の投稿
+          </label><br>
+          <label class="checkbox-inline">
+            <%= check_box_tag :like, true, false %> 行ってみたい
+          </label><hr class="sort-horizon">
+          <label class="checkbox-inline">
+            <%= check_box_tag :scenery, true, false %> 風景
+          </label><br>
+          <label class="checkbox-inline">
+            <%= check_box_tag :building, true, false %> 建物
+          </label><br>
+          <label class="checkbox-inline">
+            <%= check_box_tag :nature, true, false %> 自然
+          </label><br>
+          <label class="checkbox-inline">
+            <%= check_box_tag :food, true, false %> 飲食
+          </label><br>
+          <label class="checkbox-inline">
+            <%= check_box_tag :amusement, true, false %> 娯楽
+          </label><br>
+          <label class="checkbox-inline">
+            <%= check_box_tag :others, true, false %> その他
+          </label><hr class="sort-horizon">
+          <div class="sort-btn-container">
+            <%= submit_tag '絞り込む', class: 'btn btn-sm btn-default' %>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>
@@ -69,7 +74,11 @@
 
     google.maps.event.addListener(marker<%= i %>, 'click', function() {
       var infoWindow = new google.maps.InfoWindow({
-        content: '<%= location.title %><br><%= link_to '詳細を見る', location_path(location.id) %>'
+        <% if current_user.likes.find_by(location_id: location.id) %>
+          content: '<%= location.title %><br><%= link_to '詳細を見る', location_path(location.id) %> <%= link_to unlike_path(location.id), method: :delete, remote: true, id: 'like-heart' do %><%= fa_icon 'heart' %><% end %>'
+        <% else %>
+          content: '<%= location.title %><br><%= link_to '詳細を見る', location_path(location.id) %> <%= link_to like_path(location.id), method: :post, remote: true, id: 'like-heart' do %><%= fa_icon 'heart-o' %><% end %>'
+        <% end %>
       });
       infoWindow.open(map, marker<%= i %>);
     });

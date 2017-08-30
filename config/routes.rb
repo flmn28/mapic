@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
   root 'map#index'
+  post '/' => 'map#index'
 
   resources :users, except: :new
   get '/signup' => 'users#new'

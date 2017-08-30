@@ -30,5 +30,13 @@
   <%= @location.user_id %>
 </p>
 
+<p>
+  <% if current_user.likes.find_by(location_id: @location.id) %>
+    <%= link_to unlike_path(@location.id), method: :delete, remote: true, id: 'like-heart' do %><%= fa_icon 'heart' %><% end %><span id="like-count"><%= @location.likes.count %></span>行ってみたい
+  <% else %>
+    <%= link_to like_path(@location.id), method: :post, remote: true, id: 'like-heart' do %><%= fa_icon 'heart-o' %><% end %><span id="like-count"><%= @location.likes.count %></span>行ってみたい
+  <% end %>
+</p>
+
 <%= link_to 'Edit', edit_location_path(@location) %> |
 <%= link_to 'Back', locations_path %>
