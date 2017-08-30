@@ -10,4 +10,6 @@ class User < ApplicationRecord
   validates :password, length: { minimum: 6 }, format: { with: VALID_PASSWORD_REGEX }
 
   has_many :locations
+  has_many :likes
+  has_many :like_locations, through: :likes, source: :location
 end

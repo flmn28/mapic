@@ -127,9 +127,18 @@ RSpec.describe User, type: :model do
       @location1 = create :location, id: 1, user_id: 1
       @location2 = create :location, id: 2, user_id: 1
       @location3 = create :location, id: 3, user_id: 2
+      create :like, id: 1, user_id: 1, location_id: 1
+      create :like, id: 2, user_id: 1, location_id: 3
     end
+
     it "has correct locations" do
       expect(@user1.locations).to eq [@location1, @location2]
+    end
+
+    it "has correct like_locations" do
+      expect(@user1.like_locations.count).to eq 2
+      expect(@user1.like_locations.first).to eq @location1
+      expect(@user1.like_locations.last).to eq @location3
     end
   end
 end

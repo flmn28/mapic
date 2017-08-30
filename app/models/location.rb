@@ -8,4 +8,6 @@ class Location < ApplicationRecord
   belongs_to :user
   has_many :locations_tags
   has_many :tags, through: :locations_tags
+  has_many :likes
+  has_many :liking_users, through: :likes, source: :user
 end

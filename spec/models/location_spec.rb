@@ -53,22 +53,33 @@ RSpec.describe Location, type: :model do
 
   describe "association" do
     before do
-      @user = create :user, id: 1
+      @user1 = create :user, id: 1
+      @user2 = create :user, id: 2, email: "user2@sample.com"
+      @user3 = create :user, id: 3, email: "user3@sample.com"
       @location = create :location, id: 1
       @tag1 = create :tag, id: 1
       @tag2 = create :tag, id: 2, name: "tag2"
       @tag3 = create :tag, id: 3, name: "tag3"
-
       create :locations_tag, id: 1, location_id: 1, tag_id: 1
-      create :locations_tag, id: 2, location_id: 1, tag_id: 2
+      create :locations_tag, id: 2, location_id: 1, tag_id: 3
+      create :like, id: 1, user_id: 1, location_id: 1
+      create :like, id: 2, user_id: 3, location_id: 1
     end
 
     it "belongs to a user" do
-      expect(@location.user).to eq @user
+      expect(@location.user).to eq @user1
     end
 
     it "has correct tags" do
       expect(@location.tags.count).to eq 2
+      expect(@location.tags.first).to eq @tag1
+      expect(@location.tags.last).to eq @tag3
+    end
+
+    it "has correct liking_users" do
+      expect(@location.liking_users.count).to eq 2
+      expect(@location.liking_users.first).to eq @user1
+      expect(@location.liking_users.last).to eq @user3
     end
   end
 end
