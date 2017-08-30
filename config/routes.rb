@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
 
-  resources :locations
-  get 'map/index'
+  root 'map#index'
 
   resources :users, except: :new
   get '/signup' => 'users#new'
@@ -9,6 +8,9 @@ Rails.application.routes.draw do
   post '/login' => 'users#login'
   post '/logout' => 'users#logout'
 
-  root 'map#index'
+  resources :locations
+
+  post '/like/:location_id' => 'likes#like', as: 'like'
+  delete 'unlike/:location_id' => 'likes#unlike', as: 'unlike'
 
 end
