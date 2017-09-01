@@ -1,2 +1,2 @@
-$('#like-link').html('<%= fa_icon 'heart' %>');
+$('#like-link').html('<%= escape_javascript(render("likes/like_links", location: @location)) %>');
 $('#like-count').html('<%= @location.likes.count %>');
