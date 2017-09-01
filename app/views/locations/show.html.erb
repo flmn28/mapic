@@ -31,7 +31,7 @@
 </p>
 
 <p>
-  <span id="like_link"><%= render('likes/like_links', location: @location) %></span> <span id="like-count"><%= @location.likes.count %></span>人が「行ってみたい！」と言っています
+  <span id="like-link"><%= render('likes/like_links', location: @location) %></span> <span id="like-count"><%= @location.likes.count %></span>人が「行ってみたい！」と言っています
 </p>
 
 <%= link_to 'Edit', edit_location_path(@location) %> |
