@@ -9,28 +9,28 @@
       <div class="panel-body">
         <%= form_tag root_path do %>
           <label class="checkbox-inline">
-            <%= check_box_tag :myself, true, false %> 自分の投稿
+            <%= check_box_tag :myself, true, params[:myself] %> 自分の投稿
           </label><br>
           <label class="checkbox-inline">
-            <%= check_box_tag :like, true, false %> 行ってみたい
+            <%= check_box_tag :like, true, params[:like] %> 行ってみたい
           </label><hr class="sort-horizon">
           <label class="checkbox-inline">
-            <%= check_box_tag :scenery, true, false %> 風景
+            <%= check_box_tag :scenery, true, params[:scenery] %> 風景
           </label><br>
           <label class="checkbox-inline">
-            <%= check_box_tag :building, true, false %> 建物
+            <%= check_box_tag :building, true, params[:building] %> 建物
           </label><br>
           <label class="checkbox-inline">
-            <%= check_box_tag :nature, true, false %> 自然
+            <%= check_box_tag :nature, true, params[:nature] %> 自然
           </label><br>
           <label class="checkbox-inline">
-            <%= check_box_tag :food, true, false %> 飲食
+            <%= check_box_tag :food, true, params[:food] %> 飲食
           </label><br>
           <label class="checkbox-inline">
-            <%= check_box_tag :amusement, true, false %> 娯楽
+            <%= check_box_tag :amusement, true, params[:amusement] %> 娯楽
           </label><br>
           <label class="checkbox-inline">
-            <%= check_box_tag :others, true, false %> その他
+            <%= check_box_tag :others, true, params[:others] %> その他
           </label><hr class="sort-horizon">
           <div class="sort-btn-container">
             <%= submit_tag '絞り込む', class: 'btn btn-sm btn-default' %>
