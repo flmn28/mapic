@@ -12,6 +12,11 @@ class LocationsController < ApplicationController
   def show
   end
 
+  def ranking
+    location_ids = Like.group(:location_id).order('count_location_id DESC').limit(10).count(:location_id).keys
+    @locations = location_ids.map { |id| Location.find_by(id: id) }
+  end
+
   # GET /locations/new
   def new
     @location = Location.new(address: params[:address],

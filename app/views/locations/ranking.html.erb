@@ -1,0 +1,7 @@
+<h1>Ranking</h1>
+
+<ul>
+  <% @locations.each_with_index do |location, i| %>
+    <li>第<%= i + 1 %>位：<%= location.title %>（<%= location.likes.count %>行ってみたい）</li>
+  <% end %>
+</ul>

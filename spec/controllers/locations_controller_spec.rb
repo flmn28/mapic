@@ -61,6 +61,31 @@ RSpec.describe LocationsController, type: :controller do
     end
   end
 
+  describe "GET #ranking" do
+    before do
+      @user2 = create :user, id: 2, email: "user2@sample.com"
+      @location1 = create :location, id: 1
+      @location2 = create :location, id: 2
+      @location3 = create :location, id: 3
+      @location4 = create :location, id: 4
+      create :like, id: 1, user_id: 2, location_id: 1
+      create :like, id: 2, user_id: 2, location_id: 2
+      create :like, id: 3, user_id: 2, location_id: 2
+      create :like, id: 4, user_id: 2, location_id: 2
+      create :like, id: 5, user_id: 2, location_id: 3
+      create :like, id: 6, user_id: 2, location_id: 3
+      create :like, id: 7, user_id: 2, location_id: 3
+      create :like, id: 8, user_id: 2, location_id: 3
+      create :like, id: 9, user_id: 2, location_id: 4
+      create :like, id: 10, user_id: 2, location_id: 4
+    end
+
+    it "has locations which ordered correctly" do
+      get :ranking, params: {}, session: valid_session
+      expect(assigns(:locations)).to eq [@location3, @location2, @location4, @location1]
+    end
+  end
+
   describe "GET #new" do
     it "returns a success response" do
       get :new, params: {}, session: valid_session

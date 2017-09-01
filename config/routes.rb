@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   post '/logout' => 'users#logout'
 
   resources :locations
+  get '/ranking' => 'locations#ranking'
 
   post '/like/:location_id' => 'likes#like', as: 'like'
   delete 'unlike/:location_id' => 'likes#unlike', as: 'unlike'
