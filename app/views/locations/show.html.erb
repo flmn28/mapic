@@ -1,38 +1,53 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Title:</strong>
-  <%= @location.title %>
-</p>
+<div class="row">
 
-<p>
-  <strong>Comment:</strong>
-  <%= @location.comment %>
-</p>
+  <div class="location-form col-md-6">
+    <p>
+      <strong>投稿者：</strong>
+      <%= @location.user.name %>
+    </p>
 
-<p>
-  <strong>Address:</strong>
-  <%= @location.address %>
-</p>
+    <p>
+      <strong>タイトル：</strong>
+      <%= @location.title %>
+    </p>
 
-<p>
-  <strong>Latitude:</strong>
-  <%= @location.latitude %>
-</p>
+    <p>
+      <strong>コメント：</strong>
+      <%= @location.comment %>
+    </p>
 
-<p>
-  <strong>Longitude:</strong>
-  <%= @location.longitude %>
-</p>
+    <p>
+      <strong>タグ：</strong>
+      <% @location.tags.each do |tag| %>
+        #<%= tag.name %>&nbsp;
+      <% end %>
+    </p>
 
-<p>
-  <strong>User:</strong>
-  <%= @location.user_id %>
-</p>
+    <p>
+      <span id="like-link"><%= render('likes/like_links', location: @location) %></span> <span id="like-count"><%= @location.likes.count %></span>人が「いいね！」と言っています
+    </p>
+  </div>
 
-<p>
-  <span id="like-link"><%= render('likes/like_links', location: @location) %></span> <span id="like-count"><%= @location.likes.count %></span>人が「行ってみたい！」と言っています
-</p>
+  <div id="map" class="simple-map col-md-6"></div>
+
+</div>
 
 <%= link_to 'Edit', edit_location_path(@location) %> |
 <%= link_to 'Back', locations_path %>
+
+<script>
+  var latLng = new google.maps.LatLng(<%= @location.latitude %>, <%= @location.longitude %>);
+  var options = {
+  zoom: 15,
+  center: latLng,
+  mapTypeId: google.maps.MapTypeId.ROADMAP
+  }
+  var map = new google.maps.Map(document.getElementById('map'), options);
+
+  var marker = new google.maps.Marker({
+    position: latLng,
+    map: map
+  });
+</script>
