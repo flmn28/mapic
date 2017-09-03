@@ -78,7 +78,7 @@
         infoWindow.close();
       }
       infoWindow = new google.maps.InfoWindow({
-          content: '<%= location.title %><br><%= link_to '詳細を見る', location_path(location.id) %> <span id="like-link"><%= escape_javascript(render('likes/like_links', location: location)) %></span>'
+          content: '<%= location.title %><br><span id="like-link"><%= escape_javascript(render('likes/like_links', location: location)) %></span> <span id="like-count"><%= location.likes.count %></span>いいね！<br><%= link_to '詳細を見る', location_path(location.id) %>'
       });
       infoWindow.open(map, marker<%= i %>);
     });
