@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
 
   root 'map#index'
-  post '/' => 'map#index'
   post '/option' => 'map#option'
 
   resources :users, except: :new
