@@ -31,24 +31,31 @@ RSpec.describe MapController, type: :controller do
       get :index, params: {}, session: valid_session
       expect(assigns(:locations)).to eq [@location1, @location2, @location3, @location4, @location5]
     end
+  end
+
+  describe "POST #option" do
+    it "set @locations correct data" do
+      post :option, params: {}, session: valid_session, xhr: true
+      expect(assigns(:locations)).to eq [@location1, @location2, @location3, @location4, @location5]
+    end
 
     it "can select myself" do
-      get :index, params: { myself: true }, session: valid_session
+      post :option, params: { myself: true }, session: valid_session, xhr: true
       expect(assigns(:locations)).to eq [@location1, @location2]
     end
 
     it "can select like" do
-      get :index, params: { like: true }, session: valid_session
+      post :option, params: { like: true }, session: valid_session, xhr: true
       expect(assigns(:locations)).to eq [@location3]
     end
 
     it "can select tags" do
-      get :index, params: { scenery: true }, session: valid_session
+      post :option, params: { scenery: true }, session: valid_session, xhr: true
       expect(assigns(:locations)).to eq [@location1, @location3, @location5]
     end
 
     it "can select multiply" do
-      get :index, params: { myself: true, like: true, scenery: true }, session: valid_session
+      post :option, params: { myself: true, like: true, scenery: true }, session: valid_session, xhr: true
       expect(assigns(:locations)).to eq [@location1, @location2, @location3, @location5]
     end
   end
