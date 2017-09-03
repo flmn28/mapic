@@ -7,7 +7,7 @@
       <div class="panel-heading">オプション</div>
 
       <div class="panel-body">
-        <%= form_tag root_path do %>
+        <%= form_tag option_path, remote: true do %>
           <label class="checkbox-inline">
             <%= check_box_tag :myself, true, params[:myself] %> 自分の投稿
           </label><br>
@@ -33,7 +33,7 @@
             <%= check_box_tag :others, true, params[:others] %> その他
           </label><hr class="sort-horizon">
           <div class="sort-btn-container">
-            <%= submit_tag '絞り込む', class: 'btn btn-sm btn-default' %>
+            <%= submit_tag '絞り込む', class: 'btn btn-sm btn-default', id: 'option-btn' %>
           </div>
         <% end %>
       </div>
@@ -66,17 +66,21 @@
     alert('対応していません！');
   }
 
+  var markerArray = [];
+  var infoWindow;
   <% @locations.each_with_index do |location, i| %>
     var marker<%= i %> = new google.maps.Marker({
       position: new google.maps.LatLng(<%= location.latitude %>, <%= location.longitude %>),
       map: map
     });
+    markerArray.push(marker<%= i %>);
 
     google.maps.event.addListener(marker<%= i %>, 'click', function() {
-      var infoWindow = new google.maps.InfoWindow({
-
+      if (infoWindow != undefined) {
+        infoWindow.close();
+      }
+      infoWindow = new google.maps.InfoWindow({
           content: '<%= location.title %><br><%= link_to '詳細を見る', location_path(location.id) %> <span id="like-link"><%= escape_javascript(render('likes/like_links', location: location)) %></span>'
-
       });
       infoWindow.open(map, marker<%= i %>);
     });
@@ -96,11 +100,11 @@
       'latLng': event.latLng
     }, function(result, status) {
       if (status == google.maps.GeocoderStatus.OK) {
-        var infoWindow = new google.maps.InfoWindow({
+        var newInfoWindow = new google.maps.InfoWindow({
           content: result[0].formatted_address + '<br><a href="/locations/new?address=' + result[0].formatted_address + '&latitude=' + event.latLng.lat() + '&longitude=' + event.latLng.lng() + '">この場所のオブジェクトを作成する</a>'
         });
-        infoWindow.open(map, newMarker);
-        google.maps.event.addListener(infoWindow, 'closeclick', function() {
+        newInfoWindow.open(map, newMarker);
+        google.maps.event.addListener(newInfoWindow, 'closeclick', function() {
           newMarker.setMap(null);
         });
       } else {
@@ -109,5 +113,13 @@
       }
     });
   });
+
+  $('#option-btn').click(function() {
+    if (markerArray.length > 0) {
+      markerArray.forEach(function(marker) {
+        marker.setMap(null);
+      });
+    }
+  })
 
 </script>

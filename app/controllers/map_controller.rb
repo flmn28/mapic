@@ -1,5 +1,9 @@
 class MapController < ApplicationController
   def index
+    @locations = Location.all
+  end
+
+  def option
     @params = [params[:scenery], params[:building], params[:nature],
                params[:food], params[:amusement], params[:others]]
 
@@ -34,8 +38,6 @@ class MapController < ApplicationController
       location = Location.find_by(id: id)
       @locations << location
     end
-
-    return @locations
-
   end
+
 end

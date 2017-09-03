@@ -1,0 +1,17 @@
+<% @locations.each_with_index do |location, i| %>
+  var marker<%= i %> = new google.maps.Marker({
+    position: new google.maps.LatLng(<%= location.latitude %>, <%= location.longitude %>),
+    map: map
+  });
+  markerArray.push(marker<%= i %>);
+
+  google.maps.event.addListener(marker<%= i %>, 'click', function() {
+    if (infoWindow != undefined) {
+      infoWindow.close();
+    }
+    infoWindow = new google.maps.InfoWindow({
+        content: '<%= location.title %><br><%= link_to '詳細を見る', location_path(location.id) %> <span id="like-link"><%= escape_javascript(render('likes/like_links', location: location)) %></span>'
+    });
+    infoWindow.open(map, marker<%= i %>);
+  });
+<% end %>
