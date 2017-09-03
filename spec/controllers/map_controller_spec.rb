@@ -19,6 +19,7 @@ RSpec.describe MapController, type: :controller do
     create :locations_tag, id: 4, location_id: 4, tag_id: 2
     create :locations_tag, id: 5, location_id: 5, tag_id: 1
     create :like, id: 1, user_id: 1, location_id: 3
+    create :like, id: 2, user_id: 1, location_id: 4
   end
 
   describe "GET #index" do
@@ -46,7 +47,7 @@ RSpec.describe MapController, type: :controller do
 
     it "can select like" do
       post :option, params: { like: true }, session: valid_session, xhr: true
-      expect(assigns(:locations)).to eq [@location3]
+      expect(assigns(:locations)).to eq [@location3, @location4]
     end
 
     it "can select tags" do
@@ -56,7 +57,7 @@ RSpec.describe MapController, type: :controller do
 
     it "can select multiply" do
       post :option, params: { myself: true, like: true, scenery: true }, session: valid_session, xhr: true
-      expect(assigns(:locations)).to eq [@location1, @location2, @location3, @location5]
+      expect(assigns(:locations)).to eq [@location1, @location3]
     end
   end
 
