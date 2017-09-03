@@ -9,7 +9,7 @@ class User < ApplicationRecord
   VALID_PASSWORD_REGEX = /\A[a-zA-Z0-9]+\z/i
   validates :password, length: { minimum: 6 }, format: { with: VALID_PASSWORD_REGEX }
 
-  has_many :locations
-  has_many :likes
+  has_many :locations, dependent: :destroy
+  has_many :likes, dependent: :destroy
   has_many :like_locations, through: :likes, source: :location
 end

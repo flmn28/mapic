@@ -78,7 +78,10 @@
         infoWindow.close();
       }
       infoWindow = new google.maps.InfoWindow({
-          content: '<%= location.title %><br><span id="like-link"><%= escape_javascript(render('likes/like_links', location: location)) %></span> <span id="like-count"><%= location.likes.count %></span>いいね！<br><%= link_to '詳細を見る', location_path(location.id) %>'
+          content: '<%= image_tag location.image.url, class: 'window-img' %>' +
+                   '<%= location.title %><br>' +
+                   '<span id="like-link"><%= escape_javascript(render('likes/like_links', location: location)) %></span>' +
+                   '<span id="like-count"><%= location.likes.count %></span>いいね！<br><%= link_to '詳細を見る', location_path(location.id) %>'
       });
       infoWindow.open(map, marker<%= i %>);
     });
@@ -99,7 +102,8 @@
     }, function(result, status) {
       if (status == google.maps.GeocoderStatus.OK) {
         var newInfoWindow = new google.maps.InfoWindow({
-          content: result[0].formatted_address + '<br><a href="/locations/new?address=' + result[0].formatted_address + '&latitude=' + event.latLng.lat() + '&longitude=' + event.latLng.lng() + '">この場所のオブジェクトを作成する</a>'
+          content: result[0].formatted_address + '<br>' +
+          '<a href="/locations/new?address=' + result[0].formatted_address + '&latitude=' + event.latLng.lat() + '&longitude=' + event.latLng.lng() + '">この場所のオブジェクトを作成する</a>'
         });
         newInfoWindow.open(map, newMarker);
         google.maps.event.addListener(newInfoWindow, 'closeclick', function() {

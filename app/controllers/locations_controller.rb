@@ -77,7 +77,7 @@ class LocationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def location_params
-      params.require(:location).permit(:title, :comment, :address, :latitude, :longitude).merge(user_id: current_user.id)
+      params.require(:location).permit(:title, :comment, :address, :latitude, :longitude, :image).merge(user_id: current_user.id)
     end
 
     def set_tags
