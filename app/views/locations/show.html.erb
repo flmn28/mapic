@@ -38,8 +38,7 @@
 
 </div>
 
-<%= link_to 'Edit', edit_location_path(@location) %> |
-<%= link_to 'Back', locations_path %>
+<%= link_to '編集する', edit_location_path(@location) %>
 
 <script>
   var latLng = new google.maps.LatLng(<%= @location.latitude %>, <%= @location.longitude %>);

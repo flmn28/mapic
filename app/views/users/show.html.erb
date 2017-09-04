@@ -1,14 +1,21 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @user.name %>
-</p>
+<h1><%= current_user.name %>さんの投稿</h1>
 
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
+<div class="row">
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+  <% current_user.locations.order(created_at: :desc).each_with_index do |location, i| %>
+    <div class="col-md-4 col-sm-6">
+      <%= link_to location_path(location.id), class: 'ranking-box' do %>
+        <div class="ranking-item">
+          <div class="ranking-img-wrapper">
+            <div style="background-image: url(<%= image_path location.image.url %>);" class="ranking-img"></div>
+          </div>
+          <%= location.title %><br>
+          <%= location.created_at.strftime('%Y年%m月%d日') %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+
+</div>

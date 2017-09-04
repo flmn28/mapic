@@ -6,5 +6,6 @@ FactoryGirl.define do
     latitude 36
     longitude 137
     user_id 1
+    image "image1"
   end
 end
