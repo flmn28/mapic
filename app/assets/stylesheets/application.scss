@@ -44,6 +44,14 @@ body {
   cursor: pointer;
 }
 
+.selected-nav {
+  background-color: #e3e3e3;
+}
+
+ul.navbar-nav > li > .selected-nav:hover {
+  background-color: #e3e3e3;
+}
+
 .option-bar {
   padding: 10px 30px;
 }
