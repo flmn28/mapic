@@ -2,43 +2,49 @@
 
 <div class="row">
 
-  <div class="location-form col-md-6">
-    <p>
-      <%= image_tag @location.image.url, class: 'detail-img' %>
-    </p>
+  <div class="col-md-7">
+    <div class="location-info">
+      <p>
+        <%= image_tag @location.image.url, class: 'detail-img' %>
+      </p>
 
-    <p>
-      <strong>投稿者：</strong>
-      <%= @location.user.name %>
-    </p>
+      <p>
+        <strong>投稿者：</strong>
+        <%= @location.user.name %>
+      </p>
 
-    <p>
-      <strong>タイトル：</strong>
-      <%= @location.title %>
-    </p>
+      <p>
+        <strong>タイトル：</strong>
+        <%= @location.title %>
+      </p>
 
-    <p>
-      <strong>コメント：</strong>
-      <%= @location.comment %>
-    </p>
+      <p>
+        <strong>コメント：</strong>
+        <%= @location.comment %>
+      </p>
 
-    <p>
-      <strong>タグ：</strong>
-      <% @location.tags.each do |tag| %>
-        #<%= tag.name %>&nbsp;
-      <% end %>
-    </p>
+      <p>
+        <strong>タグ：</strong>
+        <% @location.tags.each do |tag| %>
+          #<%= tag.name %>&nbsp;
+        <% end %>
+      </p>
 
-    <p>
-      <span id="like-link"><%= render('likes/like_links', location: @location) %></span> <span id="like-count"><%= @location.likes.count %></span>人が「いいね！」しました
-    </p>
+      <p>
+        <span id="like-link"><%= render('likes/like_links', location: @location) %></span> <span id="like-count"><%= @location.likes.count %></span>人が「いいね！」しました
+      </p>
+
+      <%= link_to '編集する', edit_location_path(@location) %>
+    </div>
   </div>
 
-  <div id="map" class="simple-map col-md-6"></div>
+  <div class="col-sm-5">
+    <div class=" simple-map-wrapper">
+      <div id="map" class="simple-map"></div>
+    </div>
+  </div>
 
 </div>
-
-<%= link_to '編集する', edit_location_path(@location) %>
 
 <script>
   var latLng = new google.maps.LatLng(<%= @location.latitude %>, <%= @location.longitude %>);
