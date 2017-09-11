@@ -1,8 +1,8 @@
 <% provide(:root_nav, "selected-nav") %>
 
-<div class="row wrapper">
+<div class="wrapper">
 
-  <div class="col-md-2 col-sm-3 option-bar">
+  <div class="option-bar">
     <h4 class="option-title">オプション</h4><hr class="option-horizon">
 
     <%= form_tag option_path, remote: true do %>
@@ -43,7 +43,7 @@
   </div>
 
 
-  <div id="map" class="col-md-10 col-sm-9 map-top"></div>
+  <div id="map" class="map-top main-content"></div>
 
 </div>
 

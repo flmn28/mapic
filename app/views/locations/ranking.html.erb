@@ -1,21 +1,56 @@
 <% provide(:ranking_nav, "selected-nav") %>
 
-<h1>Ranking</h1>
+<div class="wrapper">
 
-<div class="row">
+  <div class="option-bar">
+    <h4 class="option-title">オプション</h4><hr class="option-horizon">
 
-  <% @locations.each_with_index do |location, i| %>
-    <div class="col-sm-4 col-xs-6">
-      <%= link_to location_path(location.id), class: 'ranking-box' do %>
-        <div class="ranking-item">
-          <div class="ranking-img-wrapper">
-            <div style="background-image: url(<%= image_path location.image.url %>);" class="ranking-img"></div>
-          </div>
-          第<%= i + 1 %>位：<%= location.title %><br>
-          <%= location.likes.count %>いいね！
+    <%= form_tag option_path, remote: true do %>
+      <h5 class="option-type">- タグ -</h5>
+
+      <label class="checkbox-inline option-checkbox-inline">
+        <%= check_box_tag :scenery, true, params[:scenery], class: 'option-checkbox' %> 風景
+      </label><br>
+      <label class="checkbox-inline option-checkbox-inline">
+        <%= check_box_tag :building, true, params[:building], class: 'option-checkbox' %> 建物
+      </label><br>
+      <label class="checkbox-inline option-checkbox-inline">
+        <%= check_box_tag :nature, true, params[:nature], class: 'option-checkbox' %> 自然
+      </label><br>
+      <label class="checkbox-inline option-checkbox-inline">
+        <%= check_box_tag :food, true, params[:food], class: 'option-checkbox' %> 飲食
+      </label><br>
+      <label class="checkbox-inline option-checkbox-inline">
+        <%= check_box_tag :amusement, true, params[:amusement], class: 'option-checkbox' %> 娯楽
+      </label><br>
+      <label class="checkbox-inline option-checkbox-inline">
+        <%= check_box_tag :others, true, params[:others], class: 'option-checkbox' %> その他
+      </label><hr class="option-horizon">
+
+      <div class="option-btn-container">
+        <%= submit_tag '絞り込む', class: 'btn btn-sm btn-default', id: 'option-btn' %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="main-content">
+    <h1>いいね！ランキング</h1>
+
+    <div class="row">
+      <% @locations.each_with_index do |location, i| %>
+        <div class="col-sm-4 col-xs-6">
+          <%= link_to location_path(location.id), class: 'ranking-box' do %>
+            <div class="ranking-item">
+              <div class="ranking-img-wrapper">
+                <div style="background-image: url(<%= image_path location.image.url %>);" class="ranking-img"></div>
+              </div>
+              第<%= i + 1 %>位：<%= location.title %><br>
+              <%= location.likes.count %>いいね！
+            </div>
+          <% end %>
         </div>
       <% end %>
     </div>
-  <% end %>
+  </div>
 
 </div>

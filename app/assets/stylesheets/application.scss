@@ -48,9 +48,19 @@ body {
   cursor: pointer;
 }
 
+.navbar-default .navbar-nav > .open > a.dropdown-toggle {
+  background-color: #e3880d;
+  color: #fff;
+}
+
+.dropdown-menu {
+  background-color: #fafafa;
+}
+
 .navbar {
-  background-color: #00984b;
-  border-color: #5a8;
+  background: linear-gradient(135deg, #ed6d46, #f3981d);
+  border: none;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 .navbar > .container-fluid .navbar-brand {
@@ -69,16 +79,15 @@ body {
   color: #fff;
   padding: 15px 20px;
   &:hover {
-    background-color: #007036;
+    background-color: #ed7d10;
     color: #fff;
   }
 }
 
-
 ul.navbar-nav > li > .selected-nav {
-  color: #ffd700;
+  background-color: #e3700d;
   &:hover {
-    color: #ffd700;
+    background-color: #e3700d;
   }
 }
 
@@ -87,9 +96,14 @@ ul.navbar-nav > li > .selected-nav {
 
 .option-bar {
   height: 100%;
-  padding: 10px 30px;
-  background-color: #eaf3e7;
-  border-right: 1px solid #9ca;
+  width: 180px;
+  padding: 20px 30px;
+  background-color: #faead3;
+  border-right: 1px solid #fad09e;
+  box-shadow: 1px 0 10px rgba(0, 0, 0, 0.2);
+  position: fixed;
+  float: left;
+  z-index: 1;
 }
 
 .option-title {
@@ -110,7 +124,7 @@ input[type="checkbox"].option-checkbox {
 }
 
 .option-horizon {
-  border-top: 1px solid #5a8;
+  border-top: 1px solid #f6ae54;
   margin: 15px 0 10px;
 }
 
@@ -119,6 +133,16 @@ input[type="checkbox"].option-checkbox {
   margin-top: 15px;
 }
 
+.option-btn {
+  background-color: #fff;
+}
+
+// main
+
+.main-content {
+  margin-left: 180px;
+  padding: 0 15px;
+}
 
 // heart
 
@@ -134,5 +158,10 @@ input[type="checkbox"].option-checkbox {
 // title
 
 h1 {
-  padding-left: 20px;
+  font-size: 24px;
+  padding: 0 5px;
+  margin: 25px 15px 25px;
+  border-bottom: 1px solid #f6ae54;
+  border-left: 5px solid #f6ae54;
+  display: inline-block;
 }

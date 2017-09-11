@@ -19,19 +19,21 @@
 .ranking-box {
   display: block;
   border: 1px solid #ccc;
-  width: 94%;
-  margin: 10px 3%;
+  width: 92%;
+  margin: 10px 4%;
   color: #000;
-  text-decoration: none;
+  background-color: #fff;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
 
   &:hover {
     background-color: #f3f3f3;
     color: #000;
+    text-decoration: none;
   }
 
   .ranking-item {
-    width: 95%;
-    margin: 10px auto;
+    width: 90%;
+    margin: 15px auto;
 
     .ranking-img-wrapper {
       position: relative;

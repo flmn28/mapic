@@ -34,7 +34,7 @@
         <span id="like-link"><%= render('likes/like_links', location: @location) %></span> <span id="like-count"><%= @location.likes.count %></span>人が「いいね！」しました
       </p>
 
-      <%= link_to '編集する', edit_location_path(@location) %>
+      <%= link_to '投稿を編集する', edit_location_path(@location) %>
     </div>
   </div>
 
