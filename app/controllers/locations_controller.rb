@@ -13,25 +13,28 @@ class LocationsController < ApplicationController
     @locations = location_ids.map { |id| Location.find_by(id: id) }
   end
 
-  # def ranking_option
-  #   @params = [params[:scenery], params[:building], params[:nature],
-  #              params[:food], params[:amusement], params[:others]]
-  #
-  #   if !@params
-  #     location_ids = Like.group(:location_id).order('count_location_id DESC').limit(10).count(:location_id).keys
-  #     return @locations = location_ids.map { |id| Location.find_by(id: id) }
-  #   end
-  #
-  #   @tagged_location_ids_array = []
-  #   @params.each_with_index do |param, i|
-  #     if param
-  #       ids = Tag.find_by(id: i + 1).locations.pluck(:id)
-  #       @tagged_location_ids_array.concat(ids)
-  #     end
-  #   end
-  #   @tagged_location_ids = @tagged_location_ids_array.uniq
-  #
-  # end
+  def ranking_option
+    params_array = [params[:scenery], params[:building], params[:nature],
+               params[:food], params[:amusement], params[:others]]
+
+    ranked_location_ids = Like.group(:location_id).order('count_location_id DESC').limit(10).count(:location_id).keys
+
+    if params_array == Array.new(6)
+      return @locations = ranked_location_ids.map { |id| Location.find_by(id: id) }
+    end
+
+    tagged_location_ids_array = []
+    params_array.each_with_index do |param, i|
+      if param
+        ids = Tag.find_by(id: i + 1).locations.pluck(:id)
+        tagged_location_ids_array.concat(ids)
+      end
+    end
+    tagged_location_ids = tagged_location_ids_array.uniq
+
+    location_ids = ranked_location_ids & tagged_location_ids
+    @locations = location_ids.map { |id| Location.find_by(id: id) }
+  end
 
   def new
     @location = Location.new(address: params[:address],

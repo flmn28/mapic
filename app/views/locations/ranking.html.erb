@@ -5,7 +5,7 @@
   <div class="option-bar">
     <h4 class="option-title">オプション</h4><hr class="option-horizon">
 
-    <%= form_tag option_path, remote: true do %>
+    <%= form_tag ranking_option_path, remote: true do %>
       <h5 class="option-type">- タグ -</h5>
 
       <label class="checkbox-inline option-checkbox-inline">
@@ -36,20 +36,8 @@
   <div class="main-content">
     <h1>いいね！ランキング</h1>
 
-    <div class="row">
-      <% @locations.each_with_index do |location, i| %>
-        <div class="col-sm-4 col-xs-6">
-          <%= link_to location_path(location.id), class: 'ranking-box' do %>
-            <div class="ranking-item">
-              <div class="ranking-img-wrapper">
-                <div style="background-image: url(<%= image_path location.image.url %>);" class="ranking-img"></div>
-              </div>
-              第<%= i + 1 %>位：<%= location.title %><br>
-              <%= location.likes.count %>いいね！
-            </div>
-          <% end %>
-        </div>
-      <% end %>
+    <div class="row", id="ranked-locations">
+      <%= render 'locations/ranked_locations', locations: @locations %>
     </div>
   </div>
 
