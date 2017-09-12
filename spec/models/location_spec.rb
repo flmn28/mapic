@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe Location, type: :model do
+
+  let(:image_path) { File.join(Rails.root, 'spec/support/images/image1.jpg') }
+  let(:image) { Rack::Test::UploadedFile.new(image_path) }
+
   describe "validation" do
     before do
       @user = create :user, id: 1
@@ -9,7 +13,7 @@ RSpec.describe Location, type: :model do
     context "with all form fullfilled correctly" do
       before do
         @location = Location.new(title: "title1", comment: "comment1", address: "address1",
-                                 latitude: 36, longitude: 137, user_id: 1)
+                                 latitude: 36, longitude: 137, user_id: 1, image: image)
       end
       it "is valid" do
         expect(@location).to be_valid

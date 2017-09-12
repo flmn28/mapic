@@ -6,6 +6,6 @@ FactoryGirl.define do
     latitude 36
     longitude 137
     user_id 1
-    image "image1"
+    image Rack::Test::UploadedFile.new(File.join(Rails.root, 'spec/support/images/image1.jpg'))
   end
 end

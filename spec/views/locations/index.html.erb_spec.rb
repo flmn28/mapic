@@ -1,7 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe "locations/index", type: :view do
+  let(:image_path) { File.join(Rails.root, 'spec/support/images/image1.jpg') }
+  let(:image) { Rack::Test::UploadedFile.new(image_path) }
+
+
   before(:each) do
+    create :user, id: 4
     assign(:locations, [
       Location.create!(
         :title => "Title",
@@ -9,7 +14,8 @@ RSpec.describe "locations/index", type: :view do
         :address => "Address",
         :latitude => 2.5,
         :longitude => 3.5,
-        :user_id => 4
+        :user_id => 4,
+        :image => image
       ),
       Location.create!(
         :title => "Title",
@@ -17,7 +23,8 @@ RSpec.describe "locations/index", type: :view do
         :address => "Address",
         :latitude => 2.5,
         :longitude => 3.5,
-        :user_id => 4
+        :user_id => 4,
+        :image => image
       )
     ])
   end
