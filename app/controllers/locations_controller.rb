@@ -1,14 +1,10 @@
 class LocationsController < ApplicationController
   before_action :set_location, only: [:show, :edit, :update, :destroy]
 
-  # GET /locations
-  # GET /locations.json
   def index
     @locations = Location.all
   end
 
-  # GET /locations/1
-  # GET /locations/1.json
   def show
   end
 
@@ -17,19 +13,35 @@ class LocationsController < ApplicationController
     @locations = location_ids.map { |id| Location.find_by(id: id) }
   end
 
-  # GET /locations/new
+  # def ranking_option
+  #   @params = [params[:scenery], params[:building], params[:nature],
+  #              params[:food], params[:amusement], params[:others]]
+  #
+  #   if !@params
+  #     location_ids = Like.group(:location_id).order('count_location_id DESC').limit(10).count(:location_id).keys
+  #     return @locations = location_ids.map { |id| Location.find_by(id: id) }
+  #   end
+  #
+  #   @tagged_location_ids_array = []
+  #   @params.each_with_index do |param, i|
+  #     if param
+  #       ids = Tag.find_by(id: i + 1).locations.pluck(:id)
+  #       @tagged_location_ids_array.concat(ids)
+  #     end
+  #   end
+  #   @tagged_location_ids = @tagged_location_ids_array.uniq
+  #
+  # end
+
   def new
     @location = Location.new(address: params[:address],
                              latitude: params[:latitude],
                              longitude: params[:longitude])
   end
 
-  # GET /locations/1/edit
   def edit
   end
 
-  # POST /locations
-  # POST /locations.json
   def create
     @location = Location.new(location_params)
 
@@ -45,8 +57,6 @@ class LocationsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /locations/1
-  # PATCH/PUT /locations/1.json
   def update
     respond_to do |format|
       if @location.update(location_params)
@@ -59,8 +69,6 @@ class LocationsController < ApplicationController
     end
   end
 
-  # DELETE /locations/1
-  # DELETE /locations/1.json
   def destroy
     @location.destroy
     respond_to do |format|
@@ -70,12 +78,11 @@ class LocationsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+
     def set_location
       @location = Location.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def location_params
       params.require(:location).permit(:title, :comment, :address, :latitude, :longitude, :image).merge(user_id: current_user.id)
     end

@@ -11,6 +11,7 @@ Rails.application.routes.draw do
 
   resources :locations
   get '/ranking' => 'locations#ranking'
+  post '/ranking_option' => 'locations#ranking_option'
 
   post '/like/:location_id' => 'likes#like', as: 'like'
   delete '/unlike/:location_id' => 'likes#unlike', as: 'unlike'

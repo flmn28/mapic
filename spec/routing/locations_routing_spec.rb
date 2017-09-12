@@ -11,6 +11,10 @@ RSpec.describe LocationsController, type: :routing do
       expect(:get => "/ranking").to route_to("locations#ranking")
     end
 
+    it "routes to #ranking_option" do
+      expect(:post => "/ranking_option").to route_to("locations#ranking_option")
+    end
+
     it "routes to #new" do
       expect(:get => "/locations/new").to route_to("locations#new")
     end
