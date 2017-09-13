@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   get '/login' => 'users#login_form'
   post '/login' => 'users#login'
   post '/logout' => 'users#logout'
+  get '/mypage' => 'users#mypage'
+  # post '/show_option' => 'users#show_option'
 
   resources :locations
   get '/ranking' => 'locations#ranking'
