@@ -15,7 +15,7 @@ class LocationsController < ApplicationController
 
   def ranking_option
     params_array = [params[:scenery], params[:building], params[:nature],
-               params[:food], params[:amusement], params[:others]]
+                    params[:food], params[:amusement], params[:others]]
 
     ranked_location_ids = Like.group(:location_id).order('count_location_id DESC').limit(10).count(:location_id).keys
 

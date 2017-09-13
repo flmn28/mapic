@@ -32,16 +32,65 @@ RSpec.describe UsersController, type: :controller do
     before do
       create :user, id: 1
       create :user, id: 2, email: "user2@sample.com"
-      @location1 = create :location, id: 1
-      @location2 = create :location, id: 2, user_id: 2
-      @location3 = create :location, id: 3
+      @location1 = create :location, id: 1, created_at: DateTime.current - 2
+      @location2 = create :location, id: 2, user_id: 2, created_at: DateTime.current - 1
+      @location3 = create :location, id: 3, created_at: DateTime.current
     end
 
     it "has locations of current_user" do
       get :mypage, params: {}, session: valid_session
       expect(assigns(:locations).count).to eq 2
-      expect(assigns(:locations).first).to eq @location1
-      expect(assigns(:locations).last).to eq @location3
+      expect(assigns(:locations).first).to eq @location3
+      expect(assigns(:locations).last).to eq @location1
+    end
+  end
+
+  describe "POST #mypage_option" do
+    before do
+      create :user, id: 1
+      create :user, id: 2, email: "user2@sample.com"
+      @location1 = create :location, id: 1, user_id: 1, created_at: DateTime.current - 5
+      @location2 = create :location, id: 2, user_id: 1, created_at: DateTime.current - 4
+      @location3 = create :location, id: 3, user_id: 1, created_at: DateTime.current - 3
+      @location4 = create :location, id: 4, user_id: 2, created_at: DateTime.current - 2
+      @location5 = create :location, id: 5, user_id: 2, created_at: DateTime.current - 1
+      @location6 = create :location, id: 6, user_id: 2, created_at: DateTime.current
+      @tag1 = create :tag, id: 1
+      @tag2 = create :tag, id: 2
+      create :locations_tag, id: 1, location_id: 1, tag_id: 1
+      create :locations_tag, id: 2, location_id: 2, tag_id: 2
+      create :locations_tag, id: 3, location_id: 3, tag_id: 1
+      create :locations_tag, id: 4, location_id: 4, tag_id: 2
+      create :locations_tag, id: 5, location_id: 5, tag_id: 2
+      create :locations_tag, id: 6, location_id: 6, tag_id: 1
+      create :like, id: 1, user_id: 1, location_id: 5
+      create :like, id: 2, user_id: 1, location_id: 6
+    end
+
+    it "can select my locations" do
+      post :mypage_option, params: { condition: 1 }, session: valid_session, xhr: true
+      expect(assigns(:locations).count).to eq 3
+      expect(assigns(:locations).first).to eq @location3
+      expect(assigns(:locations).last).to eq @location1
+    end
+
+    it "can select liking locations" do
+      post :mypage_option, params: { condition: 2 }, session: valid_session, xhr: true
+      expect(assigns(:locations).count).to eq 2
+      expect(assigns(:locations).first).to eq @location6
+      expect(assigns(:locations).last).to eq @location5
+    end
+
+    it "can select my tagged locations" do
+      post :mypage_option, params: { condition: 1, scenery: true }, session: valid_session, xhr: true
+      expect(assigns(:locations).count).to eq 2
+      expect(assigns(:locations).first).to eq @location3
+      expect(assigns(:locations).last).to eq @location1
+    end
+
+    it "can select liking tagged locations" do
+      post :mypage_option, params: { condition: 2, building: true }, session: valid_session, xhr: true
+      expect(assigns(:locations)).to eq [@location5]
     end
   end
 

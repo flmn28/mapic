@@ -1,0 +1,13 @@
+<% locations.each_with_index do |location, i| %>
+  <div class="col-md-4 col-sm-6">
+    <%= link_to location_path(location.id), class: 'ranking-box' do %>
+      <div class="ranking-item">
+        <div class="ranking-img-wrapper">
+          <div style="background-image: url(<%= image_path location.image.url %>);" class="ranking-img"></div>
+        </div>
+        <%= location.title %><br>
+        <%= location.created_at.strftime('%Y年%m月%d日') %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

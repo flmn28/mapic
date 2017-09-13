@@ -5,7 +5,7 @@
   <div class="option-bar">
     <h4 class="option-title">オプション</h4><hr class="option-horizon">
 
-    <%= form_tag option_path, remote: true do %>
+    <%= form_tag mypage_option_path, remote: true do %>
       <h5 class="option-type">- 条件 -</h5>
 
       <label class="radio-inline option-checkbox-inline">
@@ -45,20 +45,8 @@
   <div class="main-content">
     <h1><%= current_user.name %>さんの投稿</h1>
 
-    <div class="row">
-      <% @locations.order(created_at: :desc).each_with_index do |location, i| %>
-        <div class="col-md-4 col-sm-6">
-          <%= link_to location_path(location.id), class: 'ranking-box' do %>
-            <div class="ranking-item">
-              <div class="ranking-img-wrapper">
-                <div style="background-image: url(<%= image_path location.image.url %>);" class="ranking-img"></div>
-              </div>
-              <%= location.title %><br>
-              <%= location.created_at.strftime('%Y年%m月%d日') %>
-            </div>
-          <% end %>
-        </div>
-      <% end %>
+    <div class="row" id="my-locations">
+      <%= render 'users/my_locations', locations: @locations %>
     </div>
   </div>
 

@@ -7,7 +7,7 @@ class MapController < ApplicationController
 
   def option
     params_array = [params[:scenery], params[:building], params[:nature],
-               params[:food], params[:amusement], params[:others]]
+                    params[:food], params[:amusement], params[:others]]
 
     if !params[:myself] && !params[:like] && params_array == Array.new(6)
       return @locations = Location.all

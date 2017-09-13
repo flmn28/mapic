@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   post '/login' => 'users#login'
   post '/logout' => 'users#logout'
   get '/mypage' => 'users#mypage'
-  # post '/show_option' => 'users#show_option'
+  post '/mypage_option' => 'users#mypage_option'
 
   resources :locations
   get '/ranking' => 'locations#ranking'

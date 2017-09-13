@@ -1,6 +1,5 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  # 以下の2つには:createも追加
   before_action :redirect_to_top_when_logged_in, only: [:new, :create, :login_form, :login]
   before_action :authenticate_user, except: [:new, :create, :login_form, :login]
 
@@ -12,7 +11,38 @@ class UsersController < ApplicationController
   end
 
   def mypage
-    @locations = current_user.locations
+    @locations = current_user.locations.order(created_at: :desc)
+  end
+
+  def mypage_option
+    params_array = [params[:scenery], params[:building], params[:nature],
+                    params[:food], params[:amusement], params[:others]]
+
+    if params_array == Array.new(6) && params[:condition] == "1"
+      return @locations = current_user.locations.order(created_at: :desc)
+    elsif params_array == Array.new(6) && params[:condition] == "2"
+      return @locations = current_user.like_locations.order(created_at: :desc)
+    end
+
+    if params[:condition] == "1"
+      selected_location_ids = current_user.locations.pluck(:id)
+    elsif params[:condition] == "2"
+      selected_location_ids = current_user.like_locations.pluck(:id)
+    end
+
+    tagged_location_ids_array = []
+    params_array.each_with_index do |param, i|
+      if param
+        ids = Tag.find_by(id: i + 1).locations.pluck(:id)
+        tagged_location_ids_array.concat(ids)
+      end
+    end
+    tagged_location_ids = tagged_location_ids_array.uniq
+
+    location_ids = selected_location_ids & tagged_location_ids
+    unsorted_locations = location_ids.map { |id| Location.find_by(id: id) }
+    @locations = unsorted_locations.sort_by { |location| location.created_at }
+    @locations.reverse!
   end
 
   def new
