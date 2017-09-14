@@ -58,6 +58,25 @@
   float: right;
 }
 
+
+//form
+
+.location-form {
+  width: 94%;
+  margin: auto;
+}
+
+.form-map-wrapper {
+  position: relative;
+  margin: 92px 20px;
+  &:before {
+    content:"";
+    display: block;
+    padding-top: 100%;
+  }
+}
+
+
 // ranking
 
 .ranking-box {

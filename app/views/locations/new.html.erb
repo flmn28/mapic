@@ -1,5 +1,33 @@
-<h1>New Location</h1>
+<div class="row">
+  <div class="col-md-1"></div>
 
-<%= render 'form', location: @location %>
+  <div class="col-md-6 col-sm-7">
+    <div class="location-form">
+      <h1 class="form-title">新規投稿</h1>
+      <%= render 'form', location: @location %>
+    </div>
+  </div>
 
-<%= link_to 'Back', locations_path %>
+  <div class="col-md-4 col-sm-5">
+    <div class="form-map-wrapper">
+      <div id="map" class="simple-map"></div>
+    </div>
+  </div>
+
+  <div class="col-md-1"></div>
+</div>
+
+<script>
+  var latLng = new google.maps.LatLng(<%= @location.latitude %>, <%= @location.longitude %>);
+  var options = {
+  zoom: 15,
+  center: latLng,
+  mapTypeId: google.maps.MapTypeId.ROADMAP
+  }
+  var map = new google.maps.Map(document.getElementById('map'), options);
+
+  var marker = new google.maps.Marker({
+    position: latLng,
+    map: map
+  });
+</script>
