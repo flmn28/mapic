@@ -1,20 +1,64 @@
-.location-info {
+// show
+.detail-box {
   width: 94%;
-  margin: 40px auto 0;
+  margin: 30px auto;
+  padding: 10px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+}
+
+.detail-info {
+  width: 94%;
+  margin: 0 auto;
 }
 
 .simple-map-wrapper {
-  padding: 40px 10px 0px 10px;
+  position: relative;
+  margin: 96px 20px;
+  &:before {
+    content:"";
+    display: block;
+    padding-top: 100%;
+  }
 }
 
 .simple-map {
-  width: 400px;
-  height: 400px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
 }
 
 .detail-img {
   max-width: 100%;
+  margin: 10px 0;
 }
+
+.detail-name {
+  font-weight: 600;
+  margin-bottom: 5px;
+  display: inline-block;
+}
+
+.detail-comment {
+  margin: 0 10px 15px;
+}
+
+.detail-tag {
+  font-size: 13px;
+  background-color: #faead3;
+  border: 1px solid #f6ae54;
+  padding: 1px 4px;
+  border-radius: 5px;
+}
+
+.detail-edit-link {
+  display: inline-block;
+  float: right;
+}
+
+// ranking
 
 .ranking-box {
   display: block;

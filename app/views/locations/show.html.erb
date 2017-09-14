@@ -1,50 +1,51 @@
-<p id="notice"><%= notice %></p>
-
 <div class="row">
+  <div class="col-md-1"></div>
 
-  <div class="col-md-7">
-    <div class="location-info">
-      <p>
-        <%= image_tag @location.image.url, class: 'detail-img' %>
-      </p>
+  <div class="col-md-6 col-sm-7">
 
-      <p>
-        <strong>投稿者：</strong>
-        <%= @location.user.name %>
-      </p>
+    <div class="detail-box">
 
-      <p>
-        <strong>タイトル：</strong>
-        <%= @location.title %>
-      </p>
+      <h2><%= @location.title %></h2>
+      <div class="detail-info">
+        <p>
+          <%= image_tag @location.image.url, class: 'detail-img' %>
+        </p>
 
-      <p>
-        <strong>コメント：</strong>
-        <%= @location.comment %>
-      </p>
+        <p class="detail-name">
+          <%= @location.user.name %>さん
+        </p>
 
-      <p>
-        <strong>タグ：</strong>
-        <% @location.tags.each do |tag| %>
-          #<%= tag.name %>&nbsp;
-        <% end %>
-      </p>
+        <p class="detail-comment">
+          <%= @location.comment %>
+        </p>
 
-      <p>
-        <span id="like-link"><%= render('likes/like_links', location: @location) %></span> <span id="like-count"><%= @location.likes.count %></span>人が「いいね！」しました
-      </p>
+        <p class="detail-tags">
+          <% @location.tags.each do |tag| %>
+            <span class="detail-tag">#<%= tag.name %></span>
+          <% end %>
+        </p>
 
-      <%= link_to '投稿を編集する', edit_location_path(@location) %>
+        <p>
+          <span id="like-link"><%= render('likes/like_links', location: @location) %></span> <span id="like-count"><%= @location.likes.count %></span>人が「いいね！」しました
+          <% if @location.user == current_user %>
+            <span class="detail-edit-link"><%= link_to '編集する', edit_location_path(@location), class: "btn btn-default btn-xs" %></span>
+          <% end %>
+        </p>
+
+      </div>
     </div>
+
   </div>
 
-  <div class="col-sm-5">
-    <div class=" simple-map-wrapper">
+  <div class="col-md-4 col-sm-5">
+    <div class="simple-map-wrapper">
       <div id="map" class="simple-map"></div>
     </div>
   </div>
 
+  <div class="col-md-1"></div>
 </div>
+
 
 <script>
   var latLng = new google.maps.LatLng(<%= @location.latitude %>, <%= @location.longitude %>);
