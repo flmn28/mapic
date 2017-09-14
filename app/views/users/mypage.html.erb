@@ -43,7 +43,7 @@
   </div>
 
   <div class="main-content">
-    <h1><%= current_user.name %>さんの投稿</h1>
+    <h1 id="mypage-title"><%= @title %></h1>
 
     <div class="row" id="my-locations">
       <%= render 'users/my_locations', locations: @locations %>

@@ -11,6 +11,7 @@ class UsersController < ApplicationController
   end
 
   def mypage
+    @title = "#{current_user.name}さんの投稿"
     @locations = current_user.locations.order(created_at: :desc)
   end
 
@@ -19,14 +20,18 @@ class UsersController < ApplicationController
                     params[:food], params[:amusement], params[:others]]
 
     if params_array == Array.new(6) && params[:condition] == "1"
+      @title = "#{current_user.name}さんの投稿"
       return @locations = current_user.locations.order(created_at: :desc)
     elsif params_array == Array.new(6) && params[:condition] == "2"
+      @title = "#{current_user.name}さんがいいねした投稿"
       return @locations = current_user.like_locations.order(created_at: :desc)
     end
 
     if params[:condition] == "1"
+      @title = "#{current_user.name}さんの投稿"
       selected_location_ids = current_user.locations.pluck(:id)
     elsif params[:condition] == "2"
+      @title = "#{current_user.name}さんがいいねした投稿"
       selected_location_ids = current_user.like_locations.pluck(:id)
     end
 

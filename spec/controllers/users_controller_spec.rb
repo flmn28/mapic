@@ -30,7 +30,7 @@ RSpec.describe UsersController, type: :controller do
 
   describe "GET #mypage" do
     before do
-      create :user, id: 1
+      @user1 = create :user, id: 1
       create :user, id: 2, email: "user2@sample.com"
       @location1 = create :location, id: 1, created_at: DateTime.current - 2
       @location2 = create :location, id: 2, user_id: 2, created_at: DateTime.current - 1
@@ -43,11 +43,16 @@ RSpec.describe UsersController, type: :controller do
       expect(assigns(:locations).first).to eq @location3
       expect(assigns(:locations).last).to eq @location1
     end
+
+    it "has a correct title" do
+      get :mypage, params: {}, session: valid_session
+      expect(assigns(:title)).to eq "#{@user1.name}さんの投稿"
+    end
   end
 
   describe "POST #mypage_option" do
     before do
-      create :user, id: 1
+      @user1 = create :user, id: 1
       create :user, id: 2, email: "user2@sample.com"
       @location1 = create :location, id: 1, user_id: 1, created_at: DateTime.current - 5
       @location2 = create :location, id: 2, user_id: 1, created_at: DateTime.current - 4
@@ -91,6 +96,16 @@ RSpec.describe UsersController, type: :controller do
     it "can select liking tagged locations" do
       post :mypage_option, params: { condition: 2, building: true }, session: valid_session, xhr: true
       expect(assigns(:locations)).to eq [@location5]
+    end
+
+    it "has a corrrect title of my locations" do
+      post :mypage_option, params: { condition: 1 }, session: valid_session, xhr: true
+      expect(assigns(:title)).to eq "#{@user1.name}さんの投稿"
+    end
+
+    it "has a corrrect title of my locations" do
+      post :mypage_option, params: { condition: 2, scenery: true }, session: valid_session, xhr: true
+      expect(assigns(:title)).to eq "#{@user1.name}さんがいいねした投稿"
     end
   end
 
