@@ -9,7 +9,7 @@ class LocationsController < ApplicationController
   end
 
   def ranking
-    location_ids = Like.group(:location_id).order('count_location_id DESC').limit(10).count(:location_id).keys
+    location_ids = Like.group(:location_id).order('count_location_id DESC').limit(100).count(:location_id).keys
     @locations = location_ids.map { |id| Location.find_by(id: id) }
   end
 
@@ -17,7 +17,7 @@ class LocationsController < ApplicationController
     params_array = [params[:scenery], params[:building], params[:nature],
                     params[:food], params[:amusement], params[:others]]
 
-    ranked_location_ids = Like.group(:location_id).order('count_location_id DESC').limit(10).count(:location_id).keys
+    ranked_location_ids = Like.group(:location_id).order('count_location_id DESC').limit(100).count(:location_id).keys
 
     if params_array == Array.new(6)
       return @locations = ranked_location_ids.map { |id| Location.find_by(id: id) }

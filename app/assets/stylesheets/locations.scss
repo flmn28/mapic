@@ -79,6 +79,24 @@
 
 // ranking
 
+.crown-image-best {
+  width: 70px;
+  float: left;
+  position: relative;
+  top: 0;
+  left: 0;
+  z-index: 1
+}
+
+.crown-image-good {
+  width: 60px;
+  float: left;
+  position: relative;
+  top: 0;
+  left: 0;
+  z-index: 1
+}
+
 .ranking-box {
   display: block;
   border: 1px solid #ccc;
@@ -120,4 +138,12 @@
       }
     }
   }
+}
+
+.ranking-best-box {
+  margin: 20px auto;
+}
+
+.ranking-good-box {
+  margin: 20px auto;
 }

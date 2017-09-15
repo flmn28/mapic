@@ -1,13 +1,70 @@
-<% locations.each_with_index do |location, i| %>
-  <div class="col-md-4 col-sm-6">
-    <%= link_to location_path(location.id), class: 'ranking-box' do %>
-      <div class="ranking-item">
-        <div class="ranking-img-wrapper">
-          <div style="background-image: url(<%= image_path location.image.url %>);" class="ranking-img"></div>
+<div class="row">
+  <div class="col-md-3 col-sm-3"></div>
+  <div class="col-md-6 col-sm-6">
+    <% if locations[0] %>
+      <%= image_tag 'rankings/no1.png', class: "crown-image-best" %>
+      <%= link_to location_path(locations[0].id), class: 'ranking-box ranking-best-box' do %>
+        <div class="ranking-item">
+          <div class="ranking-img-wrapper">
+            <div style="background-image: url(<%= image_path locations[0].image.url %>);" class="ranking-img"></div>
+          </div>
+          第1位：<%= locations[0].title %><br>
+          <%= locations[0].likes.count %>いいね！
         </div>
-        第<%= i + 1 %>位：<%= location.title %><br>
-        <%= location.likes.count %>いいね！
-      </div>
+      <% end %>
+    <% else %>
+      対象の投稿は存在しません
     <% end %>
   </div>
-<% end %>
+  <div class="col-md-3 col-sm-3"></div>
+</div>
+
+<div class="row">
+  <div class="col-md-1 col-sm-0"></div>
+  <div class="col-md-5 col-sm-6">
+    <% if locations[1] %>
+      <%= image_tag 'rankings/no2.png', class: "crown-image-good" %>
+      <%= link_to location_path(locations[1].id), class: 'ranking-box ranking-good-box' do %>
+        <div class="ranking-item">
+          <div class="ranking-img-wrapper">
+            <div style="background-image: url(<%= image_path locations[1].image.url %>);" class="ranking-img"></div>
+          </div>
+          第2位：<%= locations[1].title %><br>
+          <%= locations[1].likes.count %>いいね！
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="col-md-5 col-sm-6">
+    <% if locations[2] %>
+      <%= image_tag 'rankings/no3.png', class: "crown-image-good" %>
+      <%= link_to location_path(locations[2].id), class: 'ranking-box ranking-good-box' do %>
+        <div class="ranking-item">
+          <div class="ranking-img-wrapper">
+            <div style="background-image: url(<%= image_path locations[2].image.url %>);" class="ranking-img"></div>
+          </div>
+          第3位：<%= locations[2].title %><br>
+          <%= locations[2].likes.count %>いいね！
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="col-md-1 col-sm-0"></div>
+</div>
+
+<div class="row">
+  <% locations.each_with_index do |location, i| %>
+    <% next if i == 0 || i == 1 || i == 2 %>
+    <div class="col-md-4 col-sm-6">
+      <%= link_to location_path(location.id), class: 'ranking-box' do %>
+        <div class="ranking-item">
+          <div class="ranking-img-wrapper">
+            <div style="background-image: url(<%= image_path location.image.url %>);" class="ranking-img"></div>
+          </div>
+          第<%= i + 1 %>位：<%= location.title %><br>
+          <%= location.likes.count %>いいね！
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>
