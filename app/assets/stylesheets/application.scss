@@ -78,10 +78,12 @@ body {
 }
 
 .navbar-default .navbar-brand {
+  font-weight: 500;
+  font-size: 22px;
   color: #fff;
   height: 46px;
   padding: 13px 15px;
-  &:hover {
+  &:hover, &:focus {
     color: #fff;
   }
 }
@@ -89,7 +91,7 @@ body {
 .navbar-default .navbar-nav > li > a {
   color: #fff;
   padding: 13px 20px;
-  &:hover {
+  &:hover, &:focus {
     background-color: #ed7d10;
     color: #fff;
   }
@@ -97,10 +99,15 @@ body {
 
 ul.navbar-nav > li > .selected-nav {
   background-color: #e3700d;
-  &:hover {
+  &:hover, &:focus {
     background-color: #e3700d;
   }
 }
+
+.navbar-default .navbar-nav > .open > a.dropdown-toggle.selected-nav {
+    background-color: #e3700d;
+    color: #fff;
+  }
 
 
 // option-bar
