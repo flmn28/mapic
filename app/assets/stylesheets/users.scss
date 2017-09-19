@@ -1,12 +1,21 @@
 // login, signup
-.form-panel {
+.user-form-box {
   max-width: 480px;
   min-width: 240px;
-  margin: 50px auto 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin: 50px auto 15px;
+  padding: 10px 10px 0;
+
+  .user-form-wrapper {
+    width: 94%;
+    margin: 10px auto 0;
+  }
 
   input[type="submit"].btn-block {
     width: 160px;
-    margin: 0 auto;
+    margin: 20px auto;
   }
 }
 

@@ -1,11 +1,9 @@
 <p id="notice"><%= notice %></p>
 
-<div class="panel panel-default form-panel">
-  <div class="panel-heading">
-    新規登録
-  </div>
+<div class="user-form-box">
+  <h2>新規登録</h2>
 
-  <div class="panel-body">
+  <div class="user-form-wrapper">
     <%= form_for(user) do |f| %>
       <% if user.errors.any? %>
         <div id="error_explanation">
