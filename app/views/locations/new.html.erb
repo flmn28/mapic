@@ -2,14 +2,16 @@
   <div class="col-md-1"></div>
 
   <div class="col-md-6 col-sm-7">
-    <div class="location-form">
-      <h1 class="form-title">新規投稿</h1>
-      <%= render 'form', location: @location %>
+    <div class="detail-box">
+      <h2>新規投稿</h2>
+      <div class="detail-wrapper">
+        <%= render 'form', location: @location %>
+      </div>
     </div>
   </div>
 
   <div class="col-md-4 col-sm-5">
-    <div class="form-map-wrapper">
+    <div class="simple-map-wrapper">
       <div id="map" class="simple-map"></div>
     </div>
   </div>

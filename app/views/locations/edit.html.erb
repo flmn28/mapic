@@ -2,14 +2,73 @@
   <div class="col-md-1"></div>
 
   <div class="col-md-6 col-sm-7">
-    <div class="location-form">
-      <h1 class="form-title">投稿編集</h1>
-      <%= render 'form', location: @location %>
+    <div class="detail-box">
+      <h2>投稿編集</h2>
+      <div class="detail-wrapper">
+        <%= form_for(@location) do |f| %>
+          <% if @location.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(@location.errors.count, "error") %> prohibited this location from being saved:</h2>
+
+              <ul>
+              <% @location.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+          <div class="form-group">
+            <%= f.label :title, 'タイトル' %>
+            <%= f.text_field :title, class: "form-control" %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :image, '画像' %>
+            <%= f.file_field :image %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :comment, 'コメント' %>
+            <%= f.text_area :comment, class: "form-control", rows: "4" %>
+          </div>
+
+          <div class="form-group">
+            <label>タグ</label><br>
+            <label class="checkbox-inline">
+              <%= check_box_tag :scenery, true, false %> 風景
+            </label>
+            <label class="checkbox-inline">
+              <%= check_box_tag :building, true, false %> 建物
+            </label>
+            <label class="checkbox-inline">
+              <%= check_box_tag :nature, true, false %> 自然
+            </label>
+            <label class="checkbox-inline">
+              <%= check_box_tag :food, true, false %> 飲食
+            </label>
+            <label class="checkbox-inline">
+              <%= check_box_tag :amusement, true, false %> 娯楽
+            </label>
+            <label class="checkbox-inline">
+              <%= check_box_tag :others, true, false %> その他
+            </label>
+          </div>
+
+          <%= f.hidden_field :address %>
+          <%= f.hidden_field :latitude %>
+          <%= f.hidden_field :longitude %>
+
+          <div class="actions">
+            <%= f.submit '更新する', class: "btn btn-default" %>
+          </div>
+        <% end %>
+      </div>
     </div>
   </div>
 
   <div class="col-md-4 col-sm-5">
-    <div class="form-map-wrapper">
+    <div class="simple-map-wrapper">
       <div id="map" class="simple-map"></div>
     </div>
   </div>
@@ -31,6 +90,3 @@
     map: map
   });
 </script>
-
-<%= link_to 'Show', @location %> |
-<%= link_to 'Back', locations_path %>

@@ -7,9 +7,9 @@
   background-color: #fff;
 }
 
-.detail-info {
+.detail-wrapper {
   width: 94%;
-  margin: 0 auto;
+  margin: 10px auto 15px;
 }
 
 .simple-map-wrapper {
@@ -62,19 +62,16 @@
 
 //form
 
-.location-form {
+.location-form-box {
   width: 94%;
-  margin: auto;
-}
-
-.form-map-wrapper {
-  position: relative;
-  margin: 92px 20px;
+  margin: 30px auto;
+  padding: 10px;
   border: 1px solid #ccc;
-  &:before {
-    content:"";
-    display: block;
-    padding-top: 100%;
+  background-color: #fff;
+
+  .location-form-wrapper {
+    width: 94%;
+    margin: 10px auto;
   }
 }
 
