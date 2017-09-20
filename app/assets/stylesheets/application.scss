@@ -85,6 +85,19 @@ body {
   min-height: 46px;
 }
 
+.navbar-default .navbar-toggle {
+  &:hover {
+    background-color: #ed7d10;
+  }
+  &:focus {
+    background-color: #e3700d;
+  }
+
+  .icon-bar {
+    background-color: #eee;
+  }
+}
+
 .navbar > .container-fluid .navbar-brand {
   margin-left: 15px;
   letter-spacing: 2px;
