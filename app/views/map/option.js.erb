@@ -1,8 +1,35 @@
 <% @locations.each_with_index do |location, i| %>
+  var image = {
+    url: '<%= image_path location.image.url %>',
+    size: new google.maps.Size(40, 40),
+    origin: new google.maps.Point(0, 0),
+    anchor: new google.maps.Point(20, 50),
+    scaledSize: new google.maps.Size(40, 40)
+  };
+
+  var markerIcon = {
+    url: '<%= image_path "maps/marker_icon.png" %>',
+    size: new google.maps.Size(54, 54),
+    origin: new google.maps.Point(0, 0),
+    anchor: new google.maps.Point(27, 53),
+    scaledSize: new google.maps.Size(54, 54)
+  };
+
+  var markerImage<%= i %> = new google.maps.Marker({
+    position: new google.maps.LatLng(<%= location.latitude %>, <%= location.longitude %>),
+    map: map,
+    icon: image,
+    optimized: false
+  });
+
   var marker<%= i %> = new google.maps.Marker({
     position: new google.maps.LatLng(<%= location.latitude %>, <%= location.longitude %>),
-    map: map
+    map: map,
+    icon: markerIcon,
+    optimized: false
   });
+
+  markerArray.push(markerImage<%= i %>);
   markerArray.push(marker<%= i %>);
 
   google.maps.event.addListener(marker<%= i %>, 'click', function() {
@@ -10,10 +37,10 @@
       infoWindow.close();
     }
     infoWindow = new google.maps.InfoWindow({
-      content: '<%= image_tag location.image.url, class: 'window-img' %>' +
-               '<%= location.title %><br>' +
-               '<span id="like-link"><%= escape_javascript(render('likes/like_links', location: location)) %></span>' +
-               '<span id="like-count"><%= location.likes.count %></span>いいね！<br><%= link_to '詳細を見る', location_path(location.id) %>'
+        content: '<%= image_tag location.image.url, class: 'window-img' %>' +
+                 '<%= location.title %><br>' +
+                 '<span id="like-link"><%= escape_javascript(render('likes/like_links', location: location)) %></span>' +
+                 '<span id="like-count"><%= location.likes.count %></span>いいね！<br><%= link_to '詳細を見る', location_path(location.id) %>'
     });
     infoWindow.open(map, marker<%= i %>);
   });

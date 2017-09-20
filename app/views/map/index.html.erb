@@ -51,9 +51,16 @@
 <script>
   var latLng = new google.maps.LatLng(35.66, 139.69);
   var options = {
-  zoom: 10,
-  center: latLng,
-  mapTypeId: google.maps.MapTypeId.ROADMAP
+    zoom: 10,
+    center: latLng,
+    mapTypeId: google.maps.MapTypeId.ROADMAP,
+    styles: [
+      {featureType: 'landscape', elementType: 'geometry.fill', stylers: [{color: '#f9f7f4'}]},
+      {featureType: 'landscape', elementType: 'geometry.stroke', stylers: [{color: '#8d9786'}]},
+      {featureType: 'road.highway', elementType: 'geometry.fill', stylers: [{weight: '0.70'}]},
+      {featureType: 'transit.line', elementType: 'geometry.fill', stylers: [{weight: '0.60'}]},
+      {featureType: 'water', elementType: 'geometry.fill', stylers: [{color: '#b9eeff'}]}
+    ]
   }
   var map = new google.maps.Map(document.getElementById('map'), options);
 
@@ -70,10 +77,37 @@
   var markerArray = [];
   var infoWindow;
   <% @locations.each_with_index do |location, i| %>
+    var image = {
+      url: '<%= image_path location.image.url %>',
+      size: new google.maps.Size(40, 40),
+      origin: new google.maps.Point(0, 0),
+      anchor: new google.maps.Point(20, 50),
+      scaledSize: new google.maps.Size(40, 40)
+    };
+
+    var markerIcon = {
+      url: '<%= image_path "maps/marker_icon.png" %>',
+      size: new google.maps.Size(54, 54),
+      origin: new google.maps.Point(0, 0),
+      anchor: new google.maps.Point(27, 53),
+      scaledSize: new google.maps.Size(54, 54)
+    };
+
+    var markerImage<%= i %> = new google.maps.Marker({
+      position: new google.maps.LatLng(<%= location.latitude %>, <%= location.longitude %>),
+      map: map,
+      icon: image,
+      optimized: false
+    });
+
     var marker<%= i %> = new google.maps.Marker({
       position: new google.maps.LatLng(<%= location.latitude %>, <%= location.longitude %>),
-      map: map
+      map: map,
+      icon: markerIcon,
+      optimized: false
     });
+
+    markerArray.push(markerImage<%= i %>);
     markerArray.push(marker<%= i %>);
 
     google.maps.event.addListener(marker<%= i %>, 'click', function() {

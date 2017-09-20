@@ -10,3 +10,9 @@
   width: 200px;
   display: block;
 }
+
+.gm-style img[style*="height: 40px;"] {
+  display: block;
+  border-radius: 50%;
+  object-fit: cover;
+}
