@@ -27,7 +27,7 @@
         <p>
           <span id="like-link"><%= render('likes/like_links', location: @location) %></span> <span id="like-count"><%= @location.likes.count %></span>人が「いいね！」しました
           <% if @location.user == current_user %>
-            <span class="detail-edit-link"><%= link_to '編集する', edit_location_path(@location), class: "btn btn-default btn-xs" %></span>
+            <span class="detail-edit-link"><%= link_to '編集', edit_location_path(@location), class: "btn btn-default btn-xs" %></span>
           <% end %>
         </p>
 
