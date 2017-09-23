@@ -49,9 +49,9 @@
 <script>
   var latLng = new google.maps.LatLng(<%= @location.latitude %>, <%= @location.longitude %>);
   var options = {
-  zoom: 15,
-  center: latLng,
-  mapTypeId: google.maps.MapTypeId.ROADMAP
+    zoom: 15,
+    center: latLng,
+    mapTypeId: google.maps.MapTypeId.ROADMAP
   }
   var map = new google.maps.Map(document.getElementById('map'), options);
 

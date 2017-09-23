@@ -1,8 +1,9 @@
 <% provide(:ranking_nav, "selected-nav") %>
+<% provide(:show_cog, "true") %>
 
 <div class="wrapper">
 
-  <div class="option-bar">
+  <div class="option-bar" id="option-bar">
     <h4 class="option-title">オプション</h4><hr class="option-horizon">
 
     <%= form_tag ranking_option_path, remote: true do %>

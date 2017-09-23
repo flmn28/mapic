@@ -15,6 +15,9 @@
         <nav class="navbar navbar-default navbar-fixed-top">
           <div class="container-fluid">
             <div class="navbar-header">
+              <% if yield(:show_cog) == 'true' %>
+                <span class="option-toggle" id="option-toggle"><%= fa_icon 'cog' %></span>
+              <% end %>
               <button class="navbar-toggle" data-toggle="collapse" data-target=".target">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -53,3 +56,24 @@
     </div>
   </body>
 </html>
+
+<script>
+  var optionBar = $('#option-bar');
+
+  $('#option-toggle').click(function() {
+    if (optionBar.hasClass('option-bar-open')) {
+      optionBar.animate({'left' : '-180px' }, 300);
+      optionBar.removeClass('option-bar-open');
+    } else {
+      optionBar.animate({'left' : '0' }, 300);
+      optionBar.addClass('option-bar-open');
+    }
+  });
+
+  if ($(window).width() < 768) {
+    $('#option-btn').click(function() {
+      optionBar.animate({'left' : '-180px' }, 300);
+      optionBar.removeClass('option-bar-open');
+    });
+  }
+</script>
