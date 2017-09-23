@@ -16,7 +16,8 @@
           <div class="container-fluid">
             <div class="navbar-header">
               <% if yield(:show_cog) == 'true' %>
-                <span class="option-toggle" id="option-toggle"><%= fa_icon 'cog' %></span>
+                <span class="option-toggle option-open-toggle"><%= fa_icon 'angle-double-right' %></span>
+                <span class="option-toggle option-close-toggle"><%= fa_icon 'angle-double-left' %></span>
               <% end %>
               <button class="navbar-toggle" data-toggle="collapse" data-target=".target">
                 <span class="icon-bar"></span>
@@ -60,13 +61,17 @@
 <script>
   var optionBar = $('#option-bar');
 
-  $('#option-toggle').click(function() {
+  $('.option-toggle').click(function() {
     if (optionBar.hasClass('option-bar-open')) {
       optionBar.animate({'left' : '-180px' }, 300);
       optionBar.removeClass('option-bar-open');
+      $(this).css('display', 'none');
+      $('.option-open-toggle').css('display', 'inline-block');
     } else {
       optionBar.animate({'left' : '0' }, 300);
       optionBar.addClass('option-bar-open');
+      $(this).css('display', 'none');
+      $('.option-close-toggle').css('display', 'inline-block');
     }
   });
 
@@ -74,6 +79,8 @@
     $('#option-btn').click(function() {
       optionBar.animate({'left' : '-180px' }, 300);
       optionBar.removeClass('option-bar-open');
+      $('.option-close-toggle').css('display', 'none');
+      $('.option-open-toggle').css('display', 'inline-block');
     });
   }
 </script>

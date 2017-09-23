@@ -249,9 +249,10 @@ h2 {
   }
 
   .navbar-default .navbar-toggle {
-    padding: 8px 9px;
-    margin-top: 7px;
-    margin-bottom: 7px;
+    padding: 7px 8px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    margin-right: 10px;
 
     &:hover {
       background-color: #ed7d10;
@@ -285,7 +286,11 @@ h2 {
     font-size: 28px;
     color: #fff;
     padding: 0;
-    margin: 3px 15px;
+    margin: 2px 15px;
+  }
+
+  .option-close-toggle {
+   display: none;
   }
 
   .option-bar {
@@ -297,5 +302,9 @@ h2 {
 
   .main-content {
     margin-left: 0;
+  }
+
+  .btn-change-form {
+    width: 90%;
   }
 }
