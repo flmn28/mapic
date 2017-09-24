@@ -55,6 +55,7 @@
     zoom: 10,
     center: latLng,
     mapTypeId: google.maps.MapTypeId.ROADMAP,
+    mapTypeControl: false,
     styles: [
       {featureType: 'landscape', elementType: 'geometry.fill', stylers: [{color: '#f9f7f4'}]},
       {featureType: 'landscape', elementType: 'geometry.stroke', stylers: [{color: '#8d9786'}]},
@@ -82,16 +83,16 @@
       url: '<%= image_path location.image.url %>',
       size: new google.maps.Size(40, 40),
       origin: new google.maps.Point(0, 0),
-      anchor: new google.maps.Point(20, 50),
+      anchor: new google.maps.Point(20, 52),
       scaledSize: new google.maps.Size(40, 40)
     };
 
     var markerIcon = {
       url: '<%= image_path "maps/marker_icon.png" %>',
-      size: new google.maps.Size(54, 54),
+      size: new google.maps.Size(43.2, 54),
       origin: new google.maps.Point(0, 0),
-      anchor: new google.maps.Point(27, 53),
-      scaledSize: new google.maps.Size(54, 54)
+      anchor: new google.maps.Point(21.6, 53),
+      scaledSize: new google.maps.Size(43.2, 54)
     };
 
     var markerImage<%= i %> = new google.maps.Marker({
