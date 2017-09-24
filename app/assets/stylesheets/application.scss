@@ -89,6 +89,15 @@ body {
   display: none;
 }
 
+.back-btn-wrapper {
+  width: 94%;
+  margin: 0 auto;
+}
+
+.sp-back-btn {
+  display: none;
+}
+
 .navbar > .container-fluid .navbar-brand {
   margin-left: 15px;
   letter-spacing: 2px;
@@ -214,7 +223,13 @@ h2 {
 }
 
 
-// smart phone
+@media (max-width: 991px) {
+  .back-btn-wrapper {
+    margin-left: 4%;
+    margin-right: 2%;
+  }
+}
+
 
 @media (max-width: 767px) {
   .navbar > .container-fluid .navbar-brand {
@@ -291,6 +306,20 @@ h2 {
 
   .option-close-toggle {
    display: none;
+  }
+
+  .pc-back-btn {
+    display: none;
+  }
+
+  .sp-back-btn {
+    display: inline-block;
+    background-color: inherit;
+    border: none;
+    font-size: 24px;
+    color: #fff;
+    padding: 0;
+    margin: 6px 15px;
   }
 
   .option-bar {

@@ -18,6 +18,8 @@
               <% if yield(:show_cog) == 'true' %>
                 <span class="option-toggle option-open-toggle"><%= fa_icon 'angle-double-right' %></span>
                 <span class="option-toggle option-close-toggle"><%= fa_icon 'angle-double-left' %></span>
+              <% elsif yield(:show_back) == 'true' %>
+                <span class="back-btn sp-back-btn"><%= fa_icon 'chevron-left' %></span>
               <% end %>
               <button class="navbar-toggle" data-toggle="collapse" data-target=".target">
                 <span class="icon-bar"></span>
@@ -83,4 +85,8 @@
       $('.option-open-toggle').css('display', 'inline-block');
     });
   }
+
+  $('.back-btn').click(function() {
+    history.back();
+  });
 </script>

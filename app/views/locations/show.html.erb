@@ -1,10 +1,12 @@
+<% provide(:show_back, "true") %>
+
 <div class="row">
   <div class="col-md-1"></div>
 
   <div class="col-md-6 col-sm-7">
     <div class="detail-box">
-
       <h2><%= @location.title %></h2>
+
       <div class="detail-wrapper">
         <p>
           <%= image_tag @location.image.url, class: 'detail-img' %>
@@ -30,9 +32,11 @@
             <span class="detail-edit-link"><%= link_to '編集', edit_location_path(@location), class: "btn btn-default btn-xs" %></span>
           <% end %>
         </p>
-
       </div>
+    </div>
 
+    <div class="back-btn-wrapper">
+      <span class="btn btn-default back-btn pc-back-btn">戻る</span>
     </div>
   </div>
 
