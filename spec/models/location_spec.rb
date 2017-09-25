@@ -20,7 +20,26 @@ RSpec.describe Location, type: :model do
       end
     end
 
-    column_names = [:title, :comment, :address, :latitude, :longitude, :user_id]
+    [:title, :comment].each do |column_name|
+      context "with no #{column_name} data" do
+        before do
+          @location = Location.new(title: "title1", comment: "comment1", address: "address1",
+                                   latitude: 36, longitude: 137, user_id: 1)
+          @location[column_name] = ""
+        end
+
+        it "is invalid" do
+          expect(@location).not_to be_valid
+        end
+
+        it "set a correct error message" do
+          @location.save
+          expect(@location.errors.messages[column_name]).to eq ["を入力してください"]
+        end
+      end
+    end
+
+    column_names = [:address, :latitude, :longitude, :user_id]
     column_names.each do |column_name|
       context "with no #{column_name} data" do
         before do
@@ -28,6 +47,7 @@ RSpec.describe Location, type: :model do
                                    latitude: 36, longitude: 137, user_id: 1)
           @location[column_name] = ""
         end
+
         it "is invalid" do
           expect(@location).not_to be_valid
         end
@@ -39,8 +59,14 @@ RSpec.describe Location, type: :model do
         @location = Location.new(title: "a" * 51, comment: "comment1", address: "address1",
                                  latitude: 36, longitude: 137, user_id: 1)
       end
+
       it "is invalid" do
         expect(@location).not_to be_valid
+      end
+
+      it "set a correct error message" do
+        @location.save
+        expect(@location.errors.messages[:title]).to eq ["は50文字以内で入力してください"]
       end
     end
 
@@ -49,8 +75,14 @@ RSpec.describe Location, type: :model do
         @location = Location.new(title: "title1", comment: "a" * 256, address: "address1",
                                  latitude: 36, longitude: 137, user_id: 1)
       end
+
       it "is invalid" do
         expect(@location).not_to be_valid
+      end
+
+      it "set a correct error message" do
+        @location.save
+        expect(@location.errors.messages[:comment]).to eq ["は255文字以内で入力してください"]
       end
     end
   end
