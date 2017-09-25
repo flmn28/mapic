@@ -5,6 +5,14 @@
 
   <div class="user-form-wrapper">
     <%= form_tag login_path do %>
+      <% if flash[:danger] %>
+        <div class="error-box">
+          <ul class="error-messages">
+            <li><%= flash[:danger] %></li>
+          </ul>
+        </div>
+      <% end %>
+
       <div class="form-group">
         <%= label_tag :email %>
         <%= text_field_tag :email, params[:email], class: "form-control" %>

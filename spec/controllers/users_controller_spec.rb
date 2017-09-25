@@ -247,6 +247,10 @@ RSpec.describe UsersController, type: :controller do
         expect(session[:user_id]).to eq nil
       end
 
+      it "set a error message to flash" do
+        expect(flash[:danger]).to eq "メールアドレスまたはパスワードが間違っています"
+      end
+
       it "render login_form" do
         expect(response).to render_template(:login_form)
       end
