@@ -65,6 +65,7 @@ class UsersController < ApplicationController
         format.html { redirect_to @user, notice: 'User was successfully created.' }
         format.json { render :show, status: :created, location: @user }
       else
+        modify_password_error_message
         format.html { render :new }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
@@ -77,6 +78,7 @@ class UsersController < ApplicationController
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
         format.json { render :show, status: :ok, location: @user }
       else
+        modify_password_error_message
         format.html { render :edit }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
@@ -119,6 +121,16 @@ class UsersController < ApplicationController
 
     def user_params
       params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    end
+
+    def modify_password_error_message
+      if @user.errors.messages[:password][0] == "can't be blank"
+        @user.errors.messages.shift
+        @user.errors.messages[:password].push('を入力してください')
+      elsif @user.errors.messages[:password_confirmation][0] == "doesn't match Password"
+        @user.errors.messages.shift
+        @user.errors.messages[:password].push('が一致していません')
+      end
     end
 
     def redirect_to_top_when_logged_in

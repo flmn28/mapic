@@ -24,7 +24,7 @@ RSpec.describe Location, type: :model do
       context "with no #{column_name} data" do
         before do
           @location = Location.new(title: "title1", comment: "comment1", address: "address1",
-                                   latitude: 36, longitude: 137, user_id: 1)
+                                   latitude: 36, longitude: 137, user_id: 1, image: image)
           @location[column_name] = ""
         end
 
@@ -39,12 +39,28 @@ RSpec.describe Location, type: :model do
       end
     end
 
+    context "with no image data" do
+      before do
+        @location = Location.new(title: "title1", comment: "comment1", address: "address1",
+                                 latitude: 36, longitude: 137, user_id: 1, image: "")
+      end
+
+      it "is invalid" do
+        expect(@location).not_to be_valid
+      end
+
+      it "set a correct error message" do
+        @location.save
+        expect(@location.errors.messages[:image]).to eq ["を選択してください"]
+      end
+    end
+
     column_names = [:address, :latitude, :longitude, :user_id]
     column_names.each do |column_name|
       context "with no #{column_name} data" do
         before do
           @location = Location.new(title: "title1", comment: "comment1", address: "address1",
-                                   latitude: 36, longitude: 137, user_id: 1)
+                                   latitude: 36, longitude: 137, user_id: 1, image: image)
           @location[column_name] = ""
         end
 
@@ -57,7 +73,7 @@ RSpec.describe Location, type: :model do
     context "when title is too long" do
       before do
         @location = Location.new(title: "a" * 51, comment: "comment1", address: "address1",
-                                 latitude: 36, longitude: 137, user_id: 1)
+                                 latitude: 36, longitude: 137, user_id: 1, image: image)
       end
 
       it "is invalid" do
@@ -73,7 +89,7 @@ RSpec.describe Location, type: :model do
     context "when comment is too long" do
       before do
         @location = Location.new(title: "title1", comment: "a" * 256, address: "address1",
-                                 latitude: 36, longitude: 137, user_id: 1)
+                                 latitude: 36, longitude: 137, user_id: 1, image: image)
       end
 
       it "is invalid" do

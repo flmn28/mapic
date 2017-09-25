@@ -7,6 +7,7 @@ RSpec.describe User, type: :model do
       before do
         @user = User.new(name: "user1", email: "user1@sample.com", password: "password1", password_confirmation: "password1")
       end
+
       it "is valid" do
         expect(@user).to be_valid
       end
@@ -19,8 +20,14 @@ RSpec.describe User, type: :model do
           @user = User.new(name: "user1", email: "user1@sample.com", password: "password1", password_confirmation: "password1")
           @user[column_name] = ""
         end
+
         it "is invalid" do
           expect(@user).not_to be_valid
+        end
+
+        it "set a correct error message" do
+          @user.save
+          expect(@user.errors.messages[column_name]).to eq ["を入力してください"]
         end
       end
     end
@@ -29,8 +36,14 @@ RSpec.describe User, type: :model do
       before do
         @user = User.new(name: "user1", email: "user1@sample.com", password: "", password_confirmation: "password1")
       end
+
       it "is invalid" do
         expect(@user).not_to be_valid
+      end
+
+      it "set a correct error message" do
+        @user.save
+        expect(@user.errors.messages[:password]).to eq ["can't be blank"]
       end
     end
 
@@ -38,8 +51,14 @@ RSpec.describe User, type: :model do
       before do
         @user = User.new(name: "user1", email: "user1@sample.com", password: "password1", password_confirmation: "")
       end
+
       it "is invalid" do
         expect(@user).not_to be_valid
+      end
+
+      it "set a correct error message" do
+        @user.save
+        expect(@user.errors.messages[:password_confirmation]).to eq ["doesn't match Password"]
       end
     end
 
@@ -47,8 +66,14 @@ RSpec.describe User, type: :model do
       before do
         @user = User.new(name: "user1", email: "user1@sample.com", password: "password1", password_confirmation: "password2")
       end
+
       it "is invalid" do
         expect(@user).not_to be_valid
+      end
+
+      it "set a correct error message" do
+        @user.save
+        expect(@user.errors.messages[:password_confirmation]).to eq ["doesn't match Password"]
       end
     end
 
@@ -56,8 +81,14 @@ RSpec.describe User, type: :model do
       before do
         @user = User.new(name: "a" * 51, email: "user1@sample.com", password: "password1", password_confirmation: "password1")
       end
+
       it "is invalid" do
         expect(@user).not_to be_valid
+      end
+
+      it "set a correct error message" do
+        @user.save
+        expect(@user.errors.messages[:name]).to eq ["は50文字以内で入力してください"]
       end
     end
 
@@ -65,8 +96,14 @@ RSpec.describe User, type: :model do
       before do
         @user = User.new(name: "user1", email: "a" * 245 + "@sample.com", password: "password1", password_confirmation: "password1")
       end
+
       it "is invalid" do
         expect(@user).not_to be_valid
+      end
+
+      it "set a correct error message" do
+        @user.save
+        expect(@user.errors.messages[:email]).to eq ["は255文字以内で入力してください"]
       end
     end
 
@@ -75,16 +112,22 @@ RSpec.describe User, type: :model do
         @user1 = User.create(name: "user1", email: "user1@sample.com", password: "password1", password_confirmation: "password1")
         @user2 = User.new(name: "user2", email: "user1@sample.com", password: "password2", password_confirmation: "password2")
       end
+
       it "is invalid" do
         expect(@user2).not_to be_valid
+      end
+
+      it "set a correct error message" do
+        @user2.save
+        expect(@user2.errors.messages[:email]).to eq ["は既に存在します"]
       end
     end
 
     context "when email has correct format" do
-      invalid_addresses = ["user@example.com", "USER@foo.COM", "A_US-ER@foo.bar.org", "first.last@foo.jp", "alice+bob@baz.cn"]
-      invalid_addresses.each do |invalid_address|
-        user = User.new(name: "user1", email: invalid_address, password: "password1", password_confirmation: "password1")
-        it "is invalid" do
+      valid_addresses = ["user@example.com", "USER@foo.COM", "A_US-ER@foo.bar.org", "first.last@foo.jp", "alice+bob@baz.cn"]
+      valid_addresses.each do |valid_address|
+        user = User.new(name: "user1", email: valid_address, password: "password1", password_confirmation: "password1")
+        it "is valid" do
           expect(user).to be_valid
         end
       end
@@ -94,8 +137,14 @@ RSpec.describe User, type: :model do
       invalid_addresses = ["user@example,com", "user_at_foo.org", "user.name@example.", "foo@bar_baz.com", "foo@bar+baz.com"]
       invalid_addresses.each do |invalid_address|
         user = User.new(name: "user1", email: invalid_address, password: "password1", password_confirmation: "password1")
+
         it "is invalid" do
           expect(user).not_to be_valid
+        end
+
+        it "set a correct error message" do
+          user.save
+          expect(user.errors.messages[:email]).to eq ["を正しく入力してください"]
         end
       end
     end
@@ -104,8 +153,14 @@ RSpec.describe User, type: :model do
       before do
         @user = User.new(name: "user1", email: "user1@sample.com", password: "pass1", password_confirmation: "pass1")
       end
+
       it "is invalid" do
         expect(@user).not_to be_valid
+      end
+
+      it "set a correct error message" do
+        @user.save
+        expect(@user.errors.messages[:password]).to eq ["は6文字以上で設定してください"]
       end
     end
 
@@ -113,8 +168,14 @@ RSpec.describe User, type: :model do
       invalid_passwords = ["pass word", "pass.word"]
       invalid_passwords.each do |invalid_password|
         user = User.new(name: "user1", email: "user1@sample.com", password: invalid_password, password_confirmation: invalid_password)
+
         it "is invalid" do
           expect(user).not_to be_valid
+        end
+
+        it "set a correct error message" do
+          user.save
+          expect(user.errors.messages[:password]).to eq ["には半角英数字を使用してください"]
         end
       end
     end
