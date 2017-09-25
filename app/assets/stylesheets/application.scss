@@ -181,12 +181,14 @@ input[type="checkbox"].option-checkbox {
   background-color: #fff;
 }
 
+
 // main
 
 .main-content {
   margin-left: 180px;
   padding: 0 15px;
 }
+
 
 // heart
 
@@ -258,6 +260,18 @@ h2 {
 .alert-warning-box {
   color: #8a6d3b;
   background-color: #fcf8e3;
+}
+
+
+// error message
+
+.error-messages {
+  padding-left: 10px;
+
+  li {
+    list-style: none;
+    color: #ee4444;
+  }
 }
 
 
