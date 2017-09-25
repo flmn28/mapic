@@ -98,16 +98,17 @@ class UsersController < ApplicationController
     user = User.find_by(email: params[:email])
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
-      # flash[:notice] = "ログインに成功しました"
+      flash[:success] = "ログインに成功しました"
       redirect_to root_path
     else
-      flash[:notice] = "メールアドレスまたはパスワードが間違っています"
+      flash[:danger] = "メールアドレスまたはパスワードが間違っています"
       render :login_form
     end
   end
 
   def logout
     session[:user_id] = nil
+    flash[:warning] = "ログアウトしました"
     redirect_to login_path
   end
 
@@ -122,7 +123,7 @@ class UsersController < ApplicationController
 
     def redirect_to_top_when_logged_in
       if session[:user_id]
-        flash[:notice] = "既にログインしています"
+        flash[:danger] = "既にログインしています"
         redirect_to root_path
       end
     end

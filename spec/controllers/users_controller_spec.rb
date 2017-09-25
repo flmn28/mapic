@@ -229,6 +229,10 @@ RSpec.describe UsersController, type: :controller do
         expect(session[:user_id]).to eq @user.id
       end
 
+      it "set a success message to flash" do
+        expect(flash[:success]).to eq "ログインに成功しました"
+      end
+
       it "redirects to top page" do
         expect(response).to redirect_to(root_path)
       end
@@ -256,6 +260,10 @@ RSpec.describe UsersController, type: :controller do
 
     it "set nil to session[user_id]" do
       expect(session[:user_id]).to eq nil
+    end
+
+    it "set a warning message to flash" do
+      expect(flash[:warning]).to eq "ログアウトしました"
     end
 
     it "redirects to login form" do
