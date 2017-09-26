@@ -13,24 +13,36 @@ RSpec.describe User, type: :model do
       end
     end
 
-    column_names = [:name, :email]
-    column_names.each do |column_name|
-      context "with no #{column_name} data" do
-        before do
-          @user = User.new(name: "user1", email: "user1@sample.com", password: "password1", password_confirmation: "password1")
-          @user[column_name] = ""
-        end
+    context "with no name data" do
+      before do
+        @user = User.new(name: "", email: "user1@sample.com", password: "password1", password_confirmation: "password1")
+      end
 
-        it "is invalid" do
-          expect(@user).not_to be_valid
-        end
+      it "is invalid" do
+        expect(@user).not_to be_valid
+      end
 
-        it "set a correct error message" do
-          @user.save
-          expect(@user.errors.messages[column_name]).to eq ["を入力してください"]
-        end
+      it "set a correct error message" do
+        @user.save
+        expect(@user.errors.messages[:name]).to eq ["ユーザー名を入力してください"]
       end
     end
+
+    context "with no email data" do
+      before do
+        @user = User.new(name: "user1", email: "", password: "password1", password_confirmation: "password1")
+      end
+
+      it "is invalid" do
+        expect(@user).not_to be_valid
+      end
+
+      it "set a correct error message" do
+        @user.save
+        expect(@user.errors.messages[:email]).to eq ["メールアドレスを入力してください"]
+      end
+    end
+
 
     context "with no password data" do
       before do
@@ -88,7 +100,7 @@ RSpec.describe User, type: :model do
 
       it "set a correct error message" do
         @user.save
-        expect(@user.errors.messages[:name]).to eq ["は50文字以内で入力してください"]
+        expect(@user.errors.messages[:name]).to eq ["ユーザー名は50文字以内で入力してください"]
       end
     end
 
@@ -103,7 +115,7 @@ RSpec.describe User, type: :model do
 
       it "set a correct error message" do
         @user.save
-        expect(@user.errors.messages[:email]).to eq ["は255文字以内で入力してください"]
+        expect(@user.errors.messages[:email]).to eq ["メールアドレスは255文字以内で入力してください"]
       end
     end
 
@@ -119,7 +131,7 @@ RSpec.describe User, type: :model do
 
       it "set a correct error message" do
         @user2.save
-        expect(@user2.errors.messages[:email]).to eq ["は既に存在します"]
+        expect(@user2.errors.messages[:email]).to eq ["メールアドレスは既に存在します"]
       end
     end
 
@@ -144,7 +156,7 @@ RSpec.describe User, type: :model do
 
         it "set a correct error message" do
           user.save
-          expect(user.errors.messages[:email]).to eq ["を正しく入力してください"]
+          expect(user.errors.messages[:email]).to eq ["メールアドレスを正しく入力してください"]
         end
       end
     end
@@ -160,7 +172,7 @@ RSpec.describe User, type: :model do
 
       it "set a correct error message" do
         @user.save
-        expect(@user.errors.messages[:password]).to eq ["は6文字以上で設定してください"]
+        expect(@user.errors.messages[:password]).to eq ["パスワードは6文字以上で設定してください"]
       end
     end
 
@@ -175,7 +187,7 @@ RSpec.describe User, type: :model do
 
         it "set a correct error message" do
           user.save
-          expect(user.errors.messages[:password]).to eq ["には半角英数字を使用してください"]
+          expect(user.errors.messages[:password]).to eq ["パスワードには半角英数字を使用してください"]
         end
       end
     end

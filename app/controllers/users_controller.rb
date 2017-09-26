@@ -126,10 +126,10 @@ class UsersController < ApplicationController
     def modify_password_error_message
       if @user.errors.messages[:password][0] == "can't be blank"
         @user.errors.messages.shift
-        @user.errors.messages[:password].push('を入力してください')
+        @user.errors.messages[:password].push('パスワードを入力してください')
       elsif @user.errors.messages[:password_confirmation][0] == "doesn't match Password"
         @user.errors.messages.shift
-        @user.errors.messages[:password].push('が一致していません')
+        @user.errors.messages[:password].push('パスワードが一致していません')
       end
     end
 
