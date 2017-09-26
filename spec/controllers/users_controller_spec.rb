@@ -157,7 +157,7 @@ RSpec.describe UsersController, type: :controller do
     context "when password is blank" do
       it "modify error message" do
         post :create, params: { user: { name: "user1", email: "user1@sample.com", password: "", password_confirmation: "" } }
-        expect(assigns(:user).errors.messages[:password]).to eq ["を入力してください"]
+        expect(assigns(:user).errors.messages[:password]).to eq ["パスワードを入力してください"]
       end
     end
 
@@ -165,7 +165,7 @@ RSpec.describe UsersController, type: :controller do
       it "modify error message" do
         post :create, params: { user: { name: "user1", email: "user1@sample.com", password: "password1", password_confirmation: "password2" } }
         expect(assigns(:user).errors.messages[:password_confirmation]).to eq []
-        expect(assigns(:user).errors.messages[:password]).to eq ["が一致していません"]
+        expect(assigns(:user).errors.messages[:password]).to eq ["パスワードが一致していません"]
       end
     end
   end
@@ -203,7 +203,7 @@ RSpec.describe UsersController, type: :controller do
         user = User.create! valid_attributes
         put :update, params: {id: user.to_param, user: { name: "user2", email: "user1@sample.com", password: "password1", password_confirmation: "password2" } }, session: valid_session
         expect(assigns(:user).errors.messages[:password_confirmation]).to eq []
-        expect(assigns(:user).errors.messages[:password]).to eq ["が一致していません"]
+        expect(assigns(:user).errors.messages[:password]).to eq ["パスワードが一致していません"]
       end
     end
   end

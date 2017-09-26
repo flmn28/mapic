@@ -11,8 +11,10 @@
           <% if @location.errors.any? %>
             <div class="error-box">
               <ul class="error-messages">
-                <% @location.errors.full_messages.each do |message| %>
-                  <li>・<%= message %></li>
+                <% @location.errors.messages.each do |column, messages| %>
+                  <% messages.each do |message| %>
+                    <li>・<%= message %></li>
+                  <% end %>
                 <% end %>
               </ul>
             </div>

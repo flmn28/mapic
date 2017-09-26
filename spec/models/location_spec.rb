@@ -20,22 +20,19 @@ RSpec.describe Location, type: :model do
       end
     end
 
-    [:title, :comment].each do |column_name|
-      context "with no #{column_name} data" do
-        before do
-          @location = Location.new(title: "title1", comment: "comment1", address: "address1",
-                                   latitude: 36, longitude: 137, user_id: 1, image: image)
-          @location[column_name] = ""
-        end
+    context "with no title data" do
+      before do
+        @location = Location.new(title: "", comment: "comment1", address: "address1",
+                                 latitude: 36, longitude: 137, user_id: 1, image: image)
+      end
 
-        it "is invalid" do
-          expect(@location).not_to be_valid
-        end
+      it "is invalid" do
+        expect(@location).not_to be_valid
+      end
 
-        it "set a correct error message" do
-          @location.save
-          expect(@location.errors.messages[column_name]).to eq ["を入力してください"]
-        end
+      it "set a correct error message" do
+        @location.save
+        expect(@location.errors.messages[:title]).to eq ["タイトルを入力してください"]
       end
     end
 
@@ -51,7 +48,23 @@ RSpec.describe Location, type: :model do
 
       it "set a correct error message" do
         @location.save
-        expect(@location.errors.messages[:image]).to eq ["を選択してください"]
+        expect(@location.errors.messages[:image]).to eq ["画像を選択してください"]
+      end
+    end
+
+    context "with no comment data" do
+      before do
+        @location = Location.new(title: "title1", comment: "", address: "address1",
+                                 latitude: 36, longitude: 137, user_id: 1, image: image)
+      end
+
+      it "is invalid" do
+        expect(@location).not_to be_valid
+      end
+
+      it "set a correct error message" do
+        @location.save
+        expect(@location.errors.messages[:comment]).to eq ["コメントを入力してください"]
       end
     end
 
@@ -82,7 +95,7 @@ RSpec.describe Location, type: :model do
 
       it "set a correct error message" do
         @location.save
-        expect(@location.errors.messages[:title]).to eq ["は50文字以内で入力してください"]
+        expect(@location.errors.messages[:title]).to eq ["タイトルは50文字以内で入力してください"]
       end
     end
 
@@ -98,7 +111,7 @@ RSpec.describe Location, type: :model do
 
       it "set a correct error message" do
         @location.save
-        expect(@location.errors.messages[:comment]).to eq ["は255文字以内で入力してください"]
+        expect(@location.errors.messages[:comment]).to eq ["コメントは255文字以内で入力してください"]
       end
     end
   end

@@ -1,11 +1,11 @@
 class Location < ApplicationRecord
   mount_uploader :image, ImageUploader
 
-  validates :title, presence: { message: "を入力してください" },
-                    length: { maximum: 50, message: "は50文字以内で入力してください" }
-  validates :image, presence: { message: "を選択してください" }
-  validates :comment, presence: { message: "を入力してください" },
-                      length: { maximum: 255, message: "は255文字以内で入力してください" }
+  validates :title, presence: { message: "タイトルを入力してください" },
+                    length: { maximum: 50, message: "タイトルは50文字以内で入力してください" }
+  validates :image, presence: { message: "画像を選択してください" }
+  validates :comment, presence: { message: "コメントを入力してください" },
+                      length: { maximum: 255, message: "コメントは255文字以内で入力してください" }
   validates :address, presence: true
   validates :latitude, presence: true
   validates :longitude, presence: true
