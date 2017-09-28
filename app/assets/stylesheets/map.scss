@@ -6,13 +6,82 @@
   height: 100%;
 }
 
-.window-img {
-  width: 200px;
-  display: block;
-}
-
 .gm-style img[style*="height: 40px;"] {
   display: block;
   border-radius: 50%;
   object-fit: cover;
+}
+
+.gm-style-iw {
+  width: 220px !important;
+  top: 15px !important;
+  left: 37px !important;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.6);
+  z-index: -1;
+}
+
+.new-iw {
+  width: 141px !important;
+  top: 15px !important;
+  left: 2px !important;
+  padding: 20px 20px 15px;
+}
+
+.window-title {
+  display: block;
+  font-size: 16px;
+  background-color: rgb(255, 200, 150);
+  padding: 3px 10px;
+  width: 240px;
+}
+
+.window-wrapper {
+  position: relative;
+}
+
+.window-img {
+  width: 200px;
+  display: block;
+  margin: 5px 0;
+}
+
+.window-wrapper {
+  padding: 5px 10px;
+}
+
+.window-parts-wrapper {
+  padding: 5px 0;
+}
+
+.window-link {
+  display: block;
+  position: absolute;
+  right: 30px;
+  bottom: 7px;
+}
+
+.closebtn {
+	width: 30px !important;
+  height: 30px !important;
+  opacity: 1 !important;
+  right: 25px !important;
+  top: 10px !important;
+}
+
+.new-closebtn {
+  right: -5px !important;
+  top: 10px !important;
+}
+
+/* デフォルトの閉じるボタンを消す */
+.closebtn img {
+	display: none;
+}
+/* fontawesomeで閉じるボタンを作る */
+.fa-times-circle {
+	padding: 0;
+	font-size: 28px!important;
+	color: #000099;
 }

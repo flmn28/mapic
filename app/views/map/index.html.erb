@@ -66,6 +66,8 @@
   }
   var map = new google.maps.Map(document.getElementById('map'), options);
 
+  initInfoWindow();
+
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
       map.setCenter(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
@@ -116,13 +118,25 @@
       if (infoWindow != undefined) {
         infoWindow.close();
       }
+
+      if (newMarker != undefined) {
+        newMarker.setMap(null);
+      }
+
       infoWindow = new google.maps.InfoWindow({
-          content: '<%= image_tag location.image.url, class: 'window-img' %>' +
-                   '<%= location.title %><br>' +
-                   '<span id="like-link"><%= escape_javascript(render('likes/like_links', location: location)) %></span>' +
-                   '<span id="like-count"><%= location.likes.count %></span>いいね！<br><%= link_to '詳細を見る', location_path(location.id) %>'
+          content: '<span class="window-title"><%= location.title %></span>' +
+                   '<div class="window-wrapper">' +
+                     '<%= image_tag location.image.url, class: 'window-img' %>' +
+                     '<div class="window-parts-wrapper">' +
+                       '<span id="like-link"><%= escape_javascript(render('likes/like_links', location: location)) %></span>' +
+                       '<span id="like-count"><%= location.likes.count %></span>' +
+                       '<%= link_to '詳細', location_path(location.id), class: "window-link btn btn-default btn-xs" %>' +
+                     '</div>' +
+                   '</div>'
       });
+
       infoWindow.open(map, marker<%= i %>);
+      styleInfoWindow();
     });
   <% end %>
 
@@ -140,18 +154,23 @@
       'latLng': event.latLng
     }, function(result, status) {
       if (status == google.maps.GeocoderStatus.OK) {
-        var newInfoWindow = new google.maps.InfoWindow({
-          content: result[0].formatted_address + '<br>' +
-          '<a href="/locations/new?address=' + result[0].formatted_address + '&latitude=' + event.latLng.lat() + '&longitude=' + event.latLng.lng() + '">この場所の写真を投稿する</a>'
+        if (infoWindow != undefined) {
+          infoWindow.close();
+        }
+
+        infoWindow = new google.maps.InfoWindow({
+          content: '<a href="/locations/new?address=' + result[0].formatted_address + '&latitude=' + event.latLng.lat() + '&longitude=' + event.latLng.lng() + '">ここに投稿する</a>'
         });
-        newInfoWindow.open(map, newMarker);
-        google.maps.event.addListener(newInfoWindow, 'closeclick', function() {
+        infoWindow.open(map, newMarker);
+        google.maps.event.addListener(infoWindow, 'closeclick', function() {
           newMarker.setMap(null);
         });
       } else {
         newMarker.setMap(null);
         alert('選択した位置情報を取得できません');
       }
+      styleInfoWindow();
+      styleNewInfoWindow();
     });
   });
 
@@ -162,5 +181,30 @@
       });
     }
   });
+
+  function initInfoWindow() {
+    var initInfoWindow = new google.maps.InfoWindow({
+        content: '',
+        position: latLng
+    });
+    initInfoWindow.open(map);
+    styleInfoWindow();
+    initInfoWindow.close();
+  }
+
+  function styleInfoWindow() {
+    var iwOuter = $('.gm-style-iw');
+    var iwBackground = iwOuter.prev();
+    var iwCloseBtn = iwOuter.next();
+    iwBackground.children(':nth-child(2)').css("display", "none"); // 背景のshadowを消す
+    iwBackground.children(':nth-child(4)').css("display", "none"); // 白い背景を消す
+    iwCloseBtn.addClass("closebtn");
+    iwCloseBtn.prepend('<i class="fa fa-times-circle" aria-hidden="true"></i>');
+  }
+
+  function styleNewInfoWindow() {
+    $('.gm-style-iw').addClass('new-iw');
+    $('.gm-style-iw').next().addClass("new-closebtn")
+  }
 
 </script>
