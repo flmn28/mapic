@@ -274,6 +274,7 @@ GEM
     notiffany (0.1.1)
       nenv (~> 0.1)
       shellany (~> 0.0)
+    pg (0.21.0)
     pry (0.11.0)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -406,6 +407,7 @@ DEPENDENCIES
   jquery-rails
   listen (~> 3.0.5)
   mysql2 (>= 0.3.18, < 0.5)
+  pg
   pry-byebug
   pry-rails
   puma (~> 3.0)
