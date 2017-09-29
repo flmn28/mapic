@@ -159,7 +159,7 @@
         }
 
         infoWindow = new google.maps.InfoWindow({
-          content: '<a href="/locations/new?address=' + result[0].formatted_address + '&latitude=' + event.latLng.lat() + '&longitude=' + event.latLng.lng() + '">ここに投稿する</a>'
+          content: '<a href="/locations/new?address=' + result[0].formatted_address + '&latitude=' + event.latLng.lat() + '&longitude=' + event.latLng.lng() + '" class="new-marker-link">ここに投稿する</a>'
         });
         infoWindow.open(map, newMarker);
         google.maps.event.addListener(infoWindow, 'closeclick', function() {
