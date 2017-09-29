@@ -54,6 +54,7 @@ class LocationsController < ApplicationController
         format.html { redirect_to root_path, notice: 'Location was successfully created.' }
         format.json { render :show, status: :created, location: @location }
       else
+        modify_image_error_message
         format.html { render :new }
         format.json { render json: @location.errors, status: :unprocessable_entity }
       end
@@ -66,6 +67,7 @@ class LocationsController < ApplicationController
         format.html { redirect_to @location, notice: 'Location was successfully updated.' }
         format.json { render :show, status: :ok, location: @location }
       else
+        modify_image_error_message
         format.html { render :edit }
         format.json { render json: @location.errors, status: :unprocessable_entity }
       end
@@ -108,6 +110,12 @@ class LocationsController < ApplicationController
       end
       if params[:others]
         LocationsTag.create(location_id: @location.id, tag_id: 6)
+      end
+    end
+
+    def modify_image_error_message
+      if @location.errors.messages[:image][0] == "translation missing: en.errors.messages.extension_whitelist_error"
+        @location.errors.messages[:image] = ["ファイルの形式はjpg、jpeg、gif、pngのいずれかを使用してください"]
       end
     end
 end
