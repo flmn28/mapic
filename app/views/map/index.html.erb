@@ -50,7 +50,7 @@
 
 
 <script>
-  var latLng = new google.maps.LatLng(35.66, 139.69);
+  var latLng = new google.maps.LatLng(35.6811, 139.767);
   var options = {
     zoom: 10,
     center: latLng,
@@ -71,11 +71,7 @@
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
       map.setCenter(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
-    }, function() {
-      alert('現在地を取得できません！');
     });
-  } else {
-    alert('対応していません！');
   }
 
   var markerArray = [];
