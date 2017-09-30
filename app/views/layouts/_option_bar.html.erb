@@ -1,0 +1,65 @@
+<div class="option-bar" id="option-bar">
+  <h4 class="option-title">オプション</h4>
+
+  <hr class="option-horizon">
+
+  <% if params[:action] == 'index' %>
+    <% @post_path = option_path %>
+  <% elsif params[:action] == 'mypage' %>
+    <% @post_path = mypage_option_path %>
+  <% elsif params[:action] == 'ranking' %>
+    <% @post_path = ranking_option_path %>
+  <% end %>
+
+  <%= form_tag @post_path, remote: true do %>
+
+    <% if params[:action] == 'index' %>
+      <h5 class="option-type">- 条件 -</h5>
+
+      <label class="checkbox-inline option-checkbox-inline">
+        <%= check_box_tag :myself, true, params[:myself], class: 'option-checkbox' %> 自分の投稿
+      </label><br>
+      <label class="checkbox-inline option-checkbox-inline">
+        <%= check_box_tag :like, true, params[:like], class: 'option-checkbox' %> いいね！
+      </label>
+
+      <hr class="option-horizon">
+    <% elsif params[:action] == 'mypage' %>
+      <h5 class="option-type">- 条件 -</h5>
+
+      <label class="radio-inline option-checkbox-inline">
+        <%= radio_button_tag :condition, 1, true, class: 'option-checkbox' %> 自分の投稿
+      </label><br>
+      <label class="radio-inline option-checkbox-inline">
+        <%= radio_button_tag :condition, 2, false, class: 'option-checkbox' %> いいね！
+      </label>
+
+      <hr class="option-horizon">
+    <% end %>
+
+    <h5 class="option-type">- タグ -</h5>
+
+    <label class="checkbox-inline option-checkbox-inline">
+      <%= check_box_tag :scenery, true, params[:scenery], class: 'option-checkbox' %> 風景
+    </label><br>
+    <label class="checkbox-inline option-checkbox-inline">
+      <%= check_box_tag :building, true, params[:building], class: 'option-checkbox' %> 建物
+    </label><br>
+    <label class="checkbox-inline option-checkbox-inline">
+      <%= check_box_tag :nature, true, params[:nature], class: 'option-checkbox' %> 自然
+    </label><br>
+    <label class="checkbox-inline option-checkbox-inline">
+      <%= check_box_tag :food, true, params[:food], class: 'option-checkbox' %> 飲食
+    </label><br>
+    <label class="checkbox-inline option-checkbox-inline">
+      <%= check_box_tag :amusement, true, params[:amusement], class: 'option-checkbox' %> 娯楽
+    </label><br>
+    <label class="checkbox-inline option-checkbox-inline">
+      <%= check_box_tag :others, true, params[:others], class: 'option-checkbox' %> その他
+    </label><hr class="option-horizon">
+
+    <div class="option-btn-container">
+      <%= submit_tag '絞り込む', class: 'btn btn-sm btn-default', id: 'option-btn' %>
+    </div>
+  <% end %>
+</div>
