@@ -51,7 +51,8 @@ class LocationsController < ApplicationController
     respond_to do |format|
       if @location.save
         set_tags
-        format.html { redirect_to root_path, notice: 'Location was successfully created.' }
+        flash[:success] = "投稿が完了しました"
+        format.html { redirect_to root_path }
         format.json { render :show, status: :created, location: @location }
       else
         modify_image_error_message
@@ -64,7 +65,8 @@ class LocationsController < ApplicationController
   def update
     respond_to do |format|
       if @location.update(location_params)
-        format.html { redirect_to @location, notice: 'Location was successfully updated.' }
+        flash[:success] = "投稿を編集しました"
+        format.html { redirect_to @location }
         format.json { render :show, status: :ok, location: @location }
       else
         modify_image_error_message

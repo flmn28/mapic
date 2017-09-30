@@ -115,6 +115,11 @@ RSpec.describe LocationsController, type: :controller do
         expect(LocationsTag.last.tag_id).to eq 3
       end
 
+      it "set a success message to flash" do
+        post :create, params: {location: valid_attributes}, session: valid_session
+        expect(flash[:success]).to eq "投稿が完了しました"
+      end
+
       it "redirects to root" do
         post :create, params: {location: valid_attributes}, session: valid_session
         expect(response).to redirect_to(root_path)
@@ -132,20 +137,23 @@ RSpec.describe LocationsController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        { title: "title2", comment: "comment2", image: image }
       }
 
-      xit "updates the requested location" do
-        location = Location.create! valid_attributes
-        put :update, params: {id: location.to_param, location: new_attributes}, session: valid_session
-        location.reload
-        skip("Add assertions for updated state")
+      it "updates the requested location" do
+        put :update, params: {id: @location1.to_param, location: new_attributes}, session: valid_session
+        @location1.reload
+        expect(@location1.title).to eq "title2"
       end
 
-      xit "redirects to the location" do
-        location = Location.create! valid_attributes
-        put :update, params: {id: location.to_param, location: valid_attributes}, session: valid_session
-        expect(response).to redirect_to(location)
+      it "set a success message to flash" do
+        put :update, params: {id: @location1.to_param, location: new_attributes}, session: valid_session
+        expect(flash[:success]).to eq "投稿を編集しました"
+      end
+
+      it "redirects to the location" do
+        put :update, params: {id: @location1.to_param, location: new_attributes}, session: valid_session
+        expect(response).to redirect_to(@location1)
       end
     end
 
