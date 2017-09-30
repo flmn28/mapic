@@ -1,0 +1,19 @@
+<div class="simple-map-wrapper">
+  <div id="map" class="simple-map"></div>
+</div>
+
+<script>
+  var latLng = new google.maps.LatLng(<%= @location.latitude %>, <%= @location.longitude %>);
+  var options = {
+    zoom: 15,
+    center: latLng,
+    mapTypeId: google.maps.MapTypeId.ROADMAP,
+    mapTypeControl: false
+  }
+  var map = new google.maps.Map(document.getElementById('map'), options);
+
+  var marker = new google.maps.Marker({
+    position: latLng,
+    map: map
+  });
+</script>
