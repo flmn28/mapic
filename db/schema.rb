@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170903130758) do
+ActiveRecord::Schema.define(version: 20170930101320) do
 
   create_table "likes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "user_id"
@@ -23,11 +23,11 @@ ActiveRecord::Schema.define(version: 20170903130758) do
     t.string   "title"
     t.text     "comment",    limit: 65535
     t.string   "address"
-    t.float    "latitude",   limit: 24
-    t.float    "longitude",  limit: 24
+    t.decimal  "latitude",                 precision: 11, scale: 8
+    t.decimal  "longitude",                precision: 11, scale: 8
     t.integer  "user_id"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.datetime "created_at",                                        null: false
+    t.datetime "updated_at",                                        null: false
     t.string   "image"
   end
 
