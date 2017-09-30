@@ -62,7 +62,9 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
+        session[:user_id] = @user.id
+        flash[:success] = "アカウントを作成しました"
+        format.html { redirect_to root_path }
         format.json { render :show, status: :created, location: @user }
       else
         modify_password_error_message

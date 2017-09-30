@@ -141,9 +141,19 @@ RSpec.describe UsersController, type: :controller do
         }.to change(User, :count).by(1)
       end
 
+      it "set a correct user_id to session" do
+        post :create, params: {user: valid_attributes}
+        expect(session[:user_id]).to eq User.last.id
+      end
+
+      it "set a success message to flash" do
+        post :create, params: {user: valid_attributes}
+        expect(flash[:success]).to eq "アカウントを作成しました"
+      end
+
       it "redirects to the created user" do
         post :create, params: {user: valid_attributes}
-        expect(response).to redirect_to(User.last)
+        expect(response).to redirect_to root_path
       end
     end
 
