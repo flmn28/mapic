@@ -151,7 +151,7 @@ RSpec.describe UsersController, type: :controller do
         expect(flash[:success]).to eq "アカウントを作成しました"
       end
 
-      it "redirects to the created user" do
+      it "redirects to root" do
         post :create, params: {user: valid_attributes}
         expect(response).to redirect_to root_path
       end
@@ -193,10 +193,16 @@ RSpec.describe UsersController, type: :controller do
         expect(user.name).to eq "user2"
       end
 
-      it "redirects to the user" do
+      it "set a success message to flash" do
         user = User.create! valid_attributes
-        put :update, params: {id: user.to_param, user: valid_attributes}, session: valid_session
-        expect(response).to redirect_to(user)
+        put :update, params: {id: user.to_param, user: new_attributes}, session: valid_session
+        expect(flash[:success]).to eq "アカウントを編集しました"
+      end
+
+      it "redirects to mypage" do
+        user = User.create! valid_attributes
+        put :update, params: {id: user.to_param, user: new_attributes}, session: valid_session
+        expect(response).to redirect_to mypage_path
       end
     end
 
