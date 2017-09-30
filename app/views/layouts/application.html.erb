@@ -102,14 +102,25 @@
     history.back();
   });
 
+  function closeFlash() {
+    $('#alert-box').css('display', 'none');
+    $('body').css('padding-top', '46px');
+    $('.navbar').css('box-shadow', '0 2px 10px rgba(0, 0, 0, 0.3)');
+  }
+
   <% if flash[:success] || flash[:warning] %>
     $('body').css('padding-top', '86px');
     $('.navbar').css('box-shadow', 'none');
     $('#alert-close-btn').click(function() {
-      $('#alert-box').css('display', 'none');
-      $('body').css('padding-top', '46px');
-      $('.navbar').css('box-shadow', '0 2px 10px rgba(0, 0, 0, 0.3)');
+      closeFlash();
     });
   <% end %>
+
+  document.addEventListener("turbolinks:load", function() {
+    if ((<%= !flash[:success] && !flash[:warning] %> && $('#alert-box').css('display') == 'block') ||
+        ($('body').css('padding-top') == '86px' && $('#alert-box').css('display') == 'none')) {
+      closeFlash();
+    }
+  });
 
 </script>
