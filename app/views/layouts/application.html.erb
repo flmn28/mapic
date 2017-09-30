@@ -69,58 +69,57 @@
 
       </div>
     </div>
+
+    <script>
+      var optionBar = $('#option-bar');
+
+      $('.option-toggle').click(function() {
+        if (optionBar.hasClass('option-bar-open')) {
+          optionBar.animate({'left' : '-180px' }, 300);
+          optionBar.removeClass('option-bar-open');
+          $(this).css('display', 'none');
+          $('.option-open-toggle').css('display', 'inline-block');
+        } else {
+          optionBar.animate({'left' : '0' }, 300);
+          optionBar.addClass('option-bar-open');
+          $(this).css('display', 'none');
+          $('.option-close-toggle').css('display', 'inline-block');
+        }
+      });
+
+      if ($(window).width() < 768) {
+        $('#option-btn').click(function() {
+          optionBar.animate({'left' : '-180px' }, 300);
+          optionBar.removeClass('option-bar-open');
+          $('.option-close-toggle').css('display', 'none');
+          $('.option-open-toggle').css('display', 'inline-block');
+        });
+      }
+
+      $('.back-btn').click(function() {
+        history.back();
+      });
+
+      function closeFlash() {
+        $('#alert-box').css('display', 'none');
+        $('body').css('padding-top', '46px');
+        $('.navbar').css('box-shadow', '0 2px 10px rgba(0, 0, 0, 0.3)');
+      }
+
+      <% if flash[:success] || flash[:warning] %>
+        $('body').css('padding-top', '86px');
+        $('.navbar').css('box-shadow', 'none');
+        $('#alert-close-btn').click(function() {
+          closeFlash();
+        });
+      <% end %>
+
+      document.addEventListener("turbolinks:load", function() {
+        if ((<%= !flash[:success] && !flash[:warning] %> && $('#alert-box').css('display') == 'block') ||
+            ($('body').css('padding-top') == '86px' && $('#alert-box').css('display') == 'none')) {
+          closeFlash();
+        }
+      });
+    </script>
   </body>
 </html>
-
-<script>
-  var optionBar = $('#option-bar');
-
-  $('.option-toggle').click(function() {
-    if (optionBar.hasClass('option-bar-open')) {
-      optionBar.animate({'left' : '-180px' }, 300);
-      optionBar.removeClass('option-bar-open');
-      $(this).css('display', 'none');
-      $('.option-open-toggle').css('display', 'inline-block');
-    } else {
-      optionBar.animate({'left' : '0' }, 300);
-      optionBar.addClass('option-bar-open');
-      $(this).css('display', 'none');
-      $('.option-close-toggle').css('display', 'inline-block');
-    }
-  });
-
-  if ($(window).width() < 768) {
-    $('#option-btn').click(function() {
-      optionBar.animate({'left' : '-180px' }, 300);
-      optionBar.removeClass('option-bar-open');
-      $('.option-close-toggle').css('display', 'none');
-      $('.option-open-toggle').css('display', 'inline-block');
-    });
-  }
-
-  $('.back-btn').click(function() {
-    history.back();
-  });
-
-  function closeFlash() {
-    $('#alert-box').css('display', 'none');
-    $('body').css('padding-top', '46px');
-    $('.navbar').css('box-shadow', '0 2px 10px rgba(0, 0, 0, 0.3)');
-  }
-
-  <% if flash[:success] || flash[:warning] %>
-    $('body').css('padding-top', '86px');
-    $('.navbar').css('box-shadow', 'none');
-    $('#alert-close-btn').click(function() {
-      closeFlash();
-    });
-  <% end %>
-
-  document.addEventListener("turbolinks:load", function() {
-    if ((<%= !flash[:success] && !flash[:warning] %> && $('#alert-box').css('display') == 'block') ||
-        ($('body').css('padding-top') == '86px' && $('#alert-box').css('display') == 'none')) {
-      closeFlash();
-    }
-  });
-
-</script>
