@@ -7,7 +7,12 @@
     <div class="detail-box">
       <h2>新規投稿</h2>
       <div class="detail-wrapper">
-        <%= render 'form', location: @location %>
+        <%= form_for(@location) do |f| %>
+          <%= render 'form_parts', location: @location, f: f %>
+          <div class="actions">
+            <%= f.submit '投稿する', class: "btn btn-default" %>
+          </div>
+        <% end %>
       </div>
     </div>
 
