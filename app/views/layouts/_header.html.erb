@@ -1,0 +1,40 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <% if yield(:show_cog) == 'true' %>
+        <span class="option-toggle option-open-toggle"><%= fa_icon 'angle-double-right' %></span>
+        <span class="option-toggle option-close-toggle"><%= fa_icon 'angle-double-left' %></span>
+      <% elsif yield(:show_back) == 'true' %>
+        <span class="back-btn sp-back-btn"><%= fa_icon 'chevron-left' %></span>
+      <% end %>
+      <button class="navbar-toggle" data-toggle="collapse" data-target=".target">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <%= link_to "MAPIC", root_path, class: "navbar-brand" %>
+    </div>
+
+    <div class="collapse navbar-collapse target">
+      <ul class="nav navbar-nav navbar-right">
+        <% if logged_in? %>
+          <li><%= link_to "マップ", root_path, class: yield(:root_nav) %></li>
+          <li><%= link_to "ランキング", ranking_path, class: yield(:ranking_nav) %></li>
+          <li><%= link_to "マイページ", mypage_path, class: yield(:mypage_nav) %></li>
+          <li class="dropdown">
+            <a class="dropdown-toggle <%= yield(:setting_nav) %>" data-toggle="dropdown">
+              ユーザー設定 <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+              <li><%= link_to "アカウント編集", edit_user_path(current_user.id) %></li>
+              <li><%= link_to "ログアウト", logout_path, method: :post %></li>
+            </ul>
+          </li>
+          <% else %>
+            <li><%= link_to "新規登録", signup_path %></li>
+            <li><%= link_to "ログイン", login_path %></li>
+          <% end %>
+      </ul>
+    </div>
+  </div>
+</nav>
