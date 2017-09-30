@@ -1,45 +1,12 @@
 <% provide(:setting_nav, "selected-nav") %>
 <% provide(:show_back, "true") %>
 
-<p id="notice"><%= notice %></p>
-
 <div class="user-form-box">
   <h2>アカウント編集</h2>
 
   <div class="user-form-wrapper">
     <%= form_for(@user) do |f| %>
-      <% if @user.errors.any? %>
-        <div class="error-box">
-          <ul class="error-messages">
-            <% @user.errors.messages.each do |column, messages| %>
-              <% messages.each do |message| %>
-                <li>・<%= message %></li>
-              <% end %>
-            <% end %>
-          </ul>
-        </div>
-      <% end %>
-
-      <div class="form-group">
-        <%= f.label :name, 'ユーザー名' %>
-        <%= f.text_field :name, class: "form-control" %>
-      </div>
-
-      <div class="form-group">
-        <%= f.label :email, 'メールアドレス' %>
-        <%= f.text_field :email, class: "form-control" %>
-      </div>
-
-      <div class="form-group">
-        <%= f.label :password, 'パスワード' %>
-        <%= f.password_field :password, class: "form-control" %>
-      </div>
-
-      <div class="form-group">
-        <%= f.label :password_confirmation, 'パスワード確認' %>
-        <%= f.password_field :password_confirmation, class: "form-control" %>
-      </div>
-
+      <%= render 'form_parts', user: @user, f: f %>
       <div class="actions">
         <%= f.submit '更新する', class: "btn btn-default btn-block" %>
       </div>

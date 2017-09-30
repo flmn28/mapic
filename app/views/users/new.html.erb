@@ -1,3 +1,14 @@
-<%= render 'form', user: @user %>
+<div class="user-form-box">
+  <h2>新規登録</h2>
+
+  <div class="user-form-wrapper">
+    <%= form_for(@user) do |f| %>
+      <%= render 'form_parts', user: @user, f: f %>
+      <div class="actions">
+        <%= f.submit 'アカウントを作成', class: "btn btn-default btn-block" %>
+      </div>
+    <% end %>
+  </div>
+</div>
 
 <%= link_to '登録済みの方はこちら', login_path, class: "btn btn-default btn-block btn-change-form" %>
