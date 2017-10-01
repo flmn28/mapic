@@ -25,24 +25,12 @@
 
 <div class="form-group">
   <label>タグ</label><br>
-  <label class="checkbox-inline">
-    <%= check_box_tag :scenery, true, false %> 風景
-  </label>
-  <label class="checkbox-inline">
-    <%= check_box_tag :building, true, false %> 建物
-  </label>
-  <label class="checkbox-inline">
-    <%= check_box_tag :nature, true, false %> 自然
-  </label>
-  <label class="checkbox-inline">
-    <%= check_box_tag :food, true, false %> 飲食
-  </label>
-  <label class="checkbox-inline">
-    <%= check_box_tag :amusement, true, false %> 娯楽
-  </label>
-  <label class="checkbox-inline">
-    <%= check_box_tag :others, true, false %> その他
-  </label>
+
+  <% Tag.all.each do |tag| %>
+    <label class="checkbox-inline">
+      <%= check_box_tag ("tag" + tag.id.to_s), true, location.tags.find_by(id: tag.id) %> <%= tag.name %>
+    </label>
+  <% end %>
 </div>
 
 <%= f.hidden_field :address %>

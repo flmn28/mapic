@@ -95,23 +95,8 @@ class LocationsController < ApplicationController
     end
 
     def set_tags
-      if params[:scenery]
-        LocationsTag.create(location_id: @location.id, tag_id: 1)
-      end
-      if params[:building]
-        LocationsTag.create(location_id: @location.id, tag_id: 2)
-      end
-      if params[:nature]
-        LocationsTag.create(location_id: @location.id, tag_id: 3)
-      end
-      if params[:food]
-        LocationsTag.create(location_id: @location.id, tag_id: 4)
-      end
-      if params[:amusement]
-        LocationsTag.create(location_id: @location.id, tag_id: 5)
-      end
-      if params[:others]
-        LocationsTag.create(location_id: @location.id, tag_id: 6)
+      Tag.all.each do |tag|
+        LocationsTag.create(location_id: @location.id, tag_id: tag.id) if params[("tag" + tag.id.to_s)]
       end
     end
 

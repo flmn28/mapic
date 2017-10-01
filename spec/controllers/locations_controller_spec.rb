@@ -110,7 +110,7 @@ RSpec.describe LocationsController, type: :controller do
       end
 
       it "create correct locations_tags" do
-        post :create, params: {location: valid_attributes, scenery: true, nature: true}, session: valid_session
+        post :create, params: {location: valid_attributes, tag1: true, tag3: true}, session: valid_session
         expect(LocationsTag.count).to eq 8
         expect(LocationsTag.last.tag_id).to eq 3
       end
