@@ -155,4 +155,32 @@
     width: 85%;
     margin: 30px auto;
   }
+
+  .crown-image-best {
+    width: 70px;
+    float: left;
+    position: relative;
+    top: -20px;
+    left: -5px;
+    z-index: 1
+  }
+
+  .crown-image-good {
+    width: 60px;
+    float: left;
+    position: relative;
+    top: -20px;
+    left: -5px;
+    z-index: 1
+  }
+
+  .ranking-best-box {
+    margin: 10px auto 0;
+  }
+
+  .ranking-good-box {
+    margin: 25px auto 10px;
+  }
+
+
 }
