@@ -28,7 +28,7 @@
 
   <% Tag.all.each do |tag| %>
     <label class="checkbox-inline">
-      <%= check_box_tag ("tag" + tag.id.to_s), true, location.tags.find_by(id: tag.id) %> <%= tag.name %>
+      <%= check_box_tag "tag" + tag.id.to_s, true, location.tags.find_by(id: tag.id) %> <%= tag.name %>
     </label>
   <% end %>
 </div>

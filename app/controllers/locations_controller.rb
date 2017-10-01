@@ -98,7 +98,7 @@ class LocationsController < ApplicationController
 
     def create_locations_tags
       Tag.all.each do |tag|
-        LocationsTag.create(location_id: @location.id, tag_id: tag.id) if params[("tag" + tag.id.to_s)]
+        LocationsTag.create(location_id: @location.id, tag_id: tag.id) if params["tag" + tag.id.to_s]
       end
     end
 
