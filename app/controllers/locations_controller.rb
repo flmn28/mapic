@@ -50,7 +50,7 @@ class LocationsController < ApplicationController
 
     respond_to do |format|
       if @location.save
-        set_tags
+        create_locations_tags
         flash[:success] = "投稿が完了しました"
         format.html { redirect_to root_path }
         format.json { render :show, status: :created, location: @location }
@@ -65,6 +65,8 @@ class LocationsController < ApplicationController
   def update
     respond_to do |format|
       if @location.update(location_params)
+        @location.tags.destroy_all
+        create_locations_tags
         flash[:success] = "投稿を編集しました"
         format.html { redirect_to @location }
         format.json { render :show, status: :ok, location: @location }
@@ -94,7 +96,7 @@ class LocationsController < ApplicationController
       params.require(:location).permit(:title, :comment, :address, :latitude, :longitude, :image).merge(user_id: current_user.id)
     end
 
-    def set_tags
+    def create_locations_tags
       Tag.all.each do |tag|
         LocationsTag.create(location_id: @location.id, tag_id: tag.id) if params[("tag" + tag.id.to_s)]
       end

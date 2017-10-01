@@ -146,6 +146,12 @@ RSpec.describe LocationsController, type: :controller do
         expect(@location1.title).to eq "title2"
       end
 
+      it "update locations_tags" do
+        put :update, params: {id: @location1.to_param, location: new_attributes, tag1: true, tag3: true }, session: valid_session
+        expect(@location1.tags.count).to eq 2
+        expect(@location1.tags.last.id).to eq 3
+      end
+
       it "set a success message to flash" do
         put :update, params: {id: @location1.to_param, location: new_attributes}, session: valid_session
         expect(flash[:success]).to eq "投稿を編集しました"
