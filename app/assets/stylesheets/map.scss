@@ -9,9 +9,10 @@
 }
 
 .gm-style-iw {
-  width: 220px !important;
+  width: 218px !important;
   top: 15px !important;
-  left: 37px !important;
+  left: 38px !important;
+  font-size: 16px !important;
   background-color: #fff;
   border-radius: 5px;
   box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.6);
@@ -19,9 +20,10 @@
 }
 
 .new-iw {
-  width: 141px !important;
+  width: 150px !important;
   top: 15px !important;
-  left: 2px !important;
+  left: 4px !important;
+  font-size: 15px !important;
   padding: 20px 20px 15px;
 }
 
@@ -48,31 +50,42 @@
 }
 
 .window-wrapper {
-  padding: 5px 10px;
+  padding: 5px 9px;
 }
 
 .window-parts-wrapper {
-  padding: 5px 0;
+  padding: 4px 0 3px;
 }
 
 .window-link {
   display: block;
   position: absolute;
   right: 30px;
-  bottom: 7px;
+  bottom: 5px;
+  font-size: 14px !important;
 }
 
 .closebtn {
 	width: 30px !important;
   height: 30px !important;
   opacity: 1 !important;
-  right: 25px !important;
+  right: 27px !important;
   top: 10px !important;
+
+  + img {
+    right: 27px !important;
+    top: 5px !important;
+  }
 }
 
 .new-closebtn {
   right: -5px !important;
   top: 10px !important;
+
+  + img {
+    right: -5px !important;
+    top: 5px !important;
+  }
 }
 
 /* デフォルトの閉じるボタンを消す */
@@ -84,4 +97,26 @@
 	padding: 0;
 	font-size: 28px!important;
 	color: #000099;
+}
+
+@media (max-width: 330px) {
+  .window-link {
+    right: 10px !important;
+  }
+
+  .closebtn {
+    right: 5px !important;
+
+    + img {
+      right: 5px !important;
+    }
+  }
+
+  .new-closebtn {
+    right: -5px !important;
+
+    + img {
+      right: -5px !important;
+    }
+  }
 }
