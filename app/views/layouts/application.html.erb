@@ -26,7 +26,7 @@
           </div>
         <% end %>
 
-        <% if (params[:controller] == 'map' && params[:action] == 'index') || params[:action] == 'ranking' || params[:action] == 'mypage' %>
+        <% if yield(:show_option_bar) == 'true' %>
           <%= render 'layouts/option_bar' %>
         <% end %>
 

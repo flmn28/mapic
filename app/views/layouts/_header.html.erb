@@ -1,7 +1,7 @@
 <nav class="navbar navbar-default navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
-      <% if yield(:show_cog) == 'true' %>
+      <% if yield(:show_option_bar) == 'true' %>
         <span class="option-toggle option-open-toggle"><%= fa_icon 'angle-double-right' %></span>
         <span class="option-toggle option-close-toggle"><%= fa_icon 'angle-double-left' %></span>
       <% elsif yield(:show_back) == 'true' %>
