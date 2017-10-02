@@ -14,12 +14,11 @@ class LocationsController < ApplicationController
   end
 
   def ranking_option
-    params_array = [params[:scenery], params[:building], params[:nature],
-                    params[:food], params[:amusement], params[:others]]
+    params_array = Tag.all.pluck(:id).map { |id| params["tag" + id.to_s] }
 
     ranked_location_ids = Like.group(:location_id).order('count_location_id DESC').limit(100).count(:location_id).keys
 
-    if params_array == Array.new(6)
+    if params_array == Array.new(params_array.count)
       return @locations = ranked_location_ids.map { |id| Location.find_by(id: id) }
     end
 

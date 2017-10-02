@@ -87,14 +87,14 @@ RSpec.describe UsersController, type: :controller do
     end
 
     it "can select my tagged locations" do
-      post :mypage_option, params: { condition: 1, scenery: true }, session: valid_session, xhr: true
+      post :mypage_option, params: { condition: 1, tag1: true }, session: valid_session, xhr: true
       expect(assigns(:locations).count).to eq 2
       expect(assigns(:locations).first).to eq @location3
       expect(assigns(:locations).last).to eq @location1
     end
 
     it "can select liking tagged locations" do
-      post :mypage_option, params: { condition: 2, building: true }, session: valid_session, xhr: true
+      post :mypage_option, params: { condition: 2, tag2: true }, session: valid_session, xhr: true
       expect(assigns(:locations)).to eq [@location5]
     end
 
@@ -105,7 +105,7 @@ RSpec.describe UsersController, type: :controller do
 
     it "has a corrrect title of my locations" do
       post :mypage_option, params: { condition: 2, scenery: true }, session: valid_session, xhr: true
-      expect(assigns(:title)).to eq "#{@user1.name}さんがいいねした投稿"
+      expect(assigns(:title)).to eq "いいねした投稿"
     end
   end
 

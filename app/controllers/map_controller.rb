@@ -6,10 +6,9 @@ class MapController < ApplicationController
   end
 
   def option
-    params_array = [params[:scenery], params[:building], params[:nature],
-                    params[:food], params[:amusement], params[:others]]
+    params_array = Tag.all.pluck(:id).map { |id| params["tag" + id.to_s] }
 
-    if !params[:myself] && !params[:like] && params_array == Array.new(6)
+    if !params[:myself] && !params[:like] && params_array == Array.new(params_array.count)
       return @locations = Location.all
     end
 

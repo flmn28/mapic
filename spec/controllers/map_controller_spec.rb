@@ -51,12 +51,12 @@ RSpec.describe MapController, type: :controller do
     end
 
     it "can select tags" do
-      post :option, params: { scenery: true }, session: valid_session, xhr: true
+      post :option, params: { tag1: true }, session: valid_session, xhr: true
       expect(assigns(:locations)).to eq [@location1, @location3, @location5]
     end
 
     it "can select multiply" do
-      post :option, params: { myself: true, like: true, scenery: true }, session: valid_session, xhr: true
+      post :option, params: { myself: true, like: true, tag1: true }, session: valid_session, xhr: true
       expect(assigns(:locations)).to eq [@location1, @location3]
     end
   end

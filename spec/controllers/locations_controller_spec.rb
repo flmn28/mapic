@@ -69,7 +69,7 @@ RSpec.describe LocationsController, type: :controller do
 
   describe "POST #ranking_option" do
     it "can be ranked and selected by tag" do
-      get :ranking_option, params: { scenery: true, building: true }, session: valid_session, xhr: true
+      get :ranking_option, params: { tag1: true, tag2: true }, session: valid_session, xhr: true
       expect(assigns(:locations)).to eq [@location3, @location2, @location1]
     end
   end

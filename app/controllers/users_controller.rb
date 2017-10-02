@@ -16,14 +16,13 @@ class UsersController < ApplicationController
   end
 
   def mypage_option
-    params_array = [params[:scenery], params[:building], params[:nature],
-                    params[:food], params[:amusement], params[:others]]
+    params_array = Tag.all.pluck(:id).map { |id| params["tag" + id.to_s] }
 
-    if params_array == Array.new(6) && params[:condition] == "1"
+    if params_array == Array.new(params_array.count) && params[:condition] == "1"
       @title = "#{current_user.name}さんの投稿"
       return @locations = current_user.locations.order(created_at: :desc)
-    elsif params_array == Array.new(6) && params[:condition] == "2"
-      @title = "#{current_user.name}さんがいいねした投稿"
+    elsif params_array == Array.new(params_array.count) && params[:condition] == "2"
+      @title = "いいねした投稿"
       return @locations = current_user.like_locations.order(created_at: :desc)
     end
 
@@ -31,7 +30,7 @@ class UsersController < ApplicationController
       @title = "#{current_user.name}さんの投稿"
       selected_location_ids = current_user.locations.pluck(:id)
     elsif params[:condition] == "2"
-      @title = "#{current_user.name}さんがいいねした投稿"
+      @title = "いいねした投稿"
       selected_location_ids = current_user.like_locations.pluck(:id)
     end
 
