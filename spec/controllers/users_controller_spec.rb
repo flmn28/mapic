@@ -118,9 +118,9 @@ RSpec.describe UsersController, type: :controller do
     end
 
     context "when user is logged in" do
-      it "redirects to top page" do
+      it "redirects to map" do
         get :new, params: {}, session: valid_session
-        expect(response).to redirect_to(root_path)
+        expect(response).to redirect_to(map_path)
       end
     end
   end
@@ -151,9 +151,9 @@ RSpec.describe UsersController, type: :controller do
         expect(flash[:success]).to eq "アカウントを作成しました"
       end
 
-      it "redirects to root" do
+      it "redirects to map" do
         post :create, params: {user: valid_attributes}
-        expect(response).to redirect_to root_path
+        expect(response).to redirect_to map_path
       end
     end
 
@@ -248,9 +248,9 @@ RSpec.describe UsersController, type: :controller do
     end
 
     context "when user is logged in" do
-      it "redirects to top page" do
+      it "redirects to map" do
         get :login_form, params: {}, session: valid_session
-        expect(response).to redirect_to(root_path)
+        expect(response).to redirect_to(map_path)
       end
     end
   end
@@ -273,8 +273,8 @@ RSpec.describe UsersController, type: :controller do
         expect(flash[:success]).to eq "ログインに成功しました"
       end
 
-      it "redirects to top page" do
-        expect(response).to redirect_to(root_path)
+      it "redirects to map" do
+        expect(response).to redirect_to(map_path)
       end
     end
 
@@ -318,16 +318,16 @@ RSpec.describe UsersController, type: :controller do
 # root_pathが変わったらテストも変える
   describe "authentication" do
     context "when user is not logged in" do
-      it "redirect to login when access to top page" do
+      it "redirect to root when access to top page" do
         get :index, params: {}
-        expect(response).to redirect_to(login_path)
+        expect(response).to redirect_to(root_path)
       end
     end
 
     context "when user is logged in" do
-      it "redirect to top when access to login page" do
+      it "redirect to map when access to login page" do
         get :login_form, params: {}, session: valid_session
-        expect(response).to redirect_to(root_path)
+        expect(response).to redirect_to(map_path)
       end
     end
   end

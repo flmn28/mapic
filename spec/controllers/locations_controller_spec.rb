@@ -122,7 +122,7 @@ RSpec.describe LocationsController, type: :controller do
 
       it "redirects to root" do
         post :create, params: {location: valid_attributes}, session: valid_session
-        expect(response).to redirect_to(root_path)
+        expect(response).to redirect_to(map_path)
       end
     end
 

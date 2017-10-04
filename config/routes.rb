@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
 
+  root 'home#top'
   get '/top' => 'home#top'
 
-  root 'map#index'
+  get '/map' => 'map#index'
   post '/option' => 'map#option'
 
   resources :users, except: :new

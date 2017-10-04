@@ -51,7 +51,7 @@ class LocationsController < ApplicationController
       if @location.save
         create_locations_tags
         flash[:success] = "投稿が完了しました"
-        format.html { redirect_to root_path }
+        format.html { redirect_to map_path }
         format.json { render :show, status: :created, location: @location }
       else
         modify_image_error_message

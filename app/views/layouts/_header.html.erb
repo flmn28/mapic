@@ -13,16 +13,16 @@
         <span class="icon-bar"></span>
       </button>
       <% if logged_in? %>
-        <%= link_to "MAPIC", root_path, class: "navbar-brand" %>
+        <%= link_to "MAPIC", map_path, class: "navbar-brand" %>
       <% else %>
-        <%= link_to "MAPIC", top_path, class: "navbar-brand" %>
+        <%= link_to "MAPIC", root_path, class: "navbar-brand" %>
       <% end %>
     </div>
 
     <div class="collapse navbar-collapse target">
       <ul class="nav navbar-nav navbar-right">
         <% if logged_in? %>
-          <li><%= link_to "マップ", root_path, class: yield(:root_nav) %></li>
+          <li><%= link_to "マップ", map_path, class: yield(:root_nav) %></li>
           <li><%= link_to "ランキング", ranking_path, class: yield(:ranking_nav) %></li>
           <li><%= link_to "マイページ", mypage_path, class: yield(:mypage_nav) %></li>
           <li class="dropdown">

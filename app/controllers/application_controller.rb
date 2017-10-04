@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   private
     def authenticate_user
       unless session[:user_id]
-        redirect_to top_path
+        redirect_to root_path
       end
     end
 end

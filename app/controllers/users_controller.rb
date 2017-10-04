@@ -63,7 +63,7 @@ class UsersController < ApplicationController
       if @user.save
         session[:user_id] = @user.id
         flash[:success] = "アカウントを作成しました"
-        format.html { redirect_to root_path }
+        format.html { redirect_to map_path }
         format.json { render :show, status: :created, location: @user }
       else
         modify_password_error_message
@@ -103,7 +103,7 @@ class UsersController < ApplicationController
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
       flash[:success] = "ログインに成功しました"
-      redirect_to root_path
+      redirect_to map_path
     else
       flash[:danger] = "メールアドレスまたはパスワードが間違っています"
       render :login_form
@@ -138,7 +138,7 @@ class UsersController < ApplicationController
     def redirect_to_top_when_logged_in
       if session[:user_id]
         flash[:danger] = "既にログインしています"
-        redirect_to root_path
+        redirect_to map_path
       end
     end
 end
