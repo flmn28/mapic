@@ -46,8 +46,10 @@
                  '<div class="window-wrapper">' +
                    '<%= image_tag location.image.url, class: 'window-img' %>' +
                    '<div class="window-parts-wrapper">' +
-                     '<span id="like-link"><%= escape_javascript(render('likes/like_links', location: location)) %></span>' +
-                     '<span id="like-count"><%= location.likes.count %></span>' +
+                     <% if logged_in? %>
+                       '<span id="like-link"><%= escape_javascript(render('likes/like_links', location: location)) %></span>' +
+                       '<span id="like-count"><%= location.likes.count %></span>' +
+                     <% end %>
                      '<%= link_to '詳細', location_path(location.id), class: "window-link btn btn-default btn-xs" %>' +
                    '</div>' +
                  '</div>'

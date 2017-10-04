@@ -13,7 +13,7 @@
 
   <%= form_tag @post_path, remote: true do %>
 
-    <% if params[:action] == 'index' %>
+    <% if params[:action] == 'index' && logged_in? %>
       <h5 class="option-type">- 条件 -</h5>
 
       <label class="checkbox-inline option-checkbox-inline">

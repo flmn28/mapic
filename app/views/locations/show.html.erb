@@ -27,7 +27,10 @@
         </p>
 
         <p>
-          <span id="like-link"><%= render('likes/like_links', location: @location) %></span> <span id="like-count"><%= @location.likes.count %></span>いいね！
+          <% if logged_in? %>
+            <span id="like-link"><%= render('likes/like_links', location: @location) %></span> <span id="like-count"><%= @location.likes.count %></span>いいね！
+          <% end %>
+
           <% if @location.user == current_user %>
             <span class="detail-edit-link"><%= link_to '編集', edit_location_path(@location), class: "btn btn-default btn-sm" %></span>
           <% end %>

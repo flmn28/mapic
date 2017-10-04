@@ -21,8 +21,8 @@
 
     <div class="collapse navbar-collapse target">
       <ul class="nav navbar-nav navbar-right">
+        <li><%= link_to "マップ", map_path, class: yield(:map_nav) %></li>
         <% if logged_in? %>
-          <li><%= link_to "マップ", map_path, class: yield(:root_nav) %></li>
           <li><%= link_to "ランキング", ranking_path, class: yield(:ranking_nav) %></li>
           <li><%= link_to "マイページ", mypage_path, class: yield(:mypage_nav) %></li>
           <li class="dropdown">
@@ -34,10 +34,10 @@
               <li><%= link_to "ログアウト", logout_path, method: :post %></li>
             </ul>
           </li>
-          <% else %>
-            <li><%= link_to "新規登録", signup_path %></li>
-            <li><%= link_to "ログイン", login_path %></li>
-          <% end %>
+        <% else %>
+          <li><%= link_to "新規登録", signup_path, class: yield(:signup_nav) %></li>
+          <li><%= link_to "ログイン", login_path, class: yield(:login_nav) %></li>
+        <% end %>
       </ul>
     </div>
   </div>

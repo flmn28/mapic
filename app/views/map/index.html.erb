@@ -1,4 +1,4 @@
-<% provide(:root_nav, "selected-nav") %>
+<% provide(:map_nav, "selected-nav") %>
 <% provide(:show_option_bar, "true") %>
 
 <div id="map" class="map-top main-content"></div>
@@ -78,8 +78,10 @@
                    '<div class="window-wrapper">' +
                      '<%= image_tag location.image.url, class: 'window-img' %>' +
                      '<div class="window-parts-wrapper">' +
+                     <% if logged_in? %>
                        '<span id="like-link"><%= escape_javascript(render('likes/like_links', location: location)) %></span>' +
                        '<span id="like-count"><%= location.likes.count %></span>' +
+                     <% end %>
                        '<%= link_to '詳細', location_path(location.id), class: "window-link btn btn-default btn-xs" %>' +
                      '</div>' +
                    '</div>'
@@ -90,39 +92,41 @@
     });
   <% end %>
 
-  var geocoder = new google.maps.Geocoder();
   var newMarker;
-  google.maps.event.addListener(map, 'click', function(event) {
-    if (newMarker != undefined) {
-      newMarker.setMap(null);
-    }
-    newMarker = new google.maps.Marker({
-      position: event.latLng,
-      map: map
-    });
-    geocoder.geocode({
-      'latLng': event.latLng
-    }, function(result, status) {
-      if (status == google.maps.GeocoderStatus.OK) {
-        if (infoWindow != undefined) {
-          infoWindow.close();
-        }
-
-        infoWindow = new google.maps.InfoWindow({
-          content: '<a href="/locations/new?address=' + result[0].formatted_address + '&latitude=' + event.latLng.lat() + '&longitude=' + event.latLng.lng() + '" class="new-marker-link">ここに投稿する</a>'
-        });
-        infoWindow.open(map, newMarker);
-        google.maps.event.addListener(infoWindow, 'closeclick', function() {
-          newMarker.setMap(null);
-        });
-      } else {
+  <% if logged_in? %>
+    var geocoder = new google.maps.Geocoder();
+    google.maps.event.addListener(map, 'click', function(event) {
+      if (newMarker != undefined) {
         newMarker.setMap(null);
-        alert('選択した位置情報を取得できません');
       }
-      styleInfoWindow();
-      styleNewInfoWindow();
+      newMarker = new google.maps.Marker({
+        position: event.latLng,
+        map: map
+      });
+      geocoder.geocode({
+        'latLng': event.latLng
+      }, function(result, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+          if (infoWindow != undefined) {
+            infoWindow.close();
+          }
+
+          infoWindow = new google.maps.InfoWindow({
+            content: '<a href="/locations/new?address=' + result[0].formatted_address + '&latitude=' + event.latLng.lat() + '&longitude=' + event.latLng.lng() + '" class="new-marker-link">ここに投稿する</a>'
+          });
+          infoWindow.open(map, newMarker);
+          google.maps.event.addListener(infoWindow, 'closeclick', function() {
+            newMarker.setMap(null);
+          });
+        } else {
+          newMarker.setMap(null);
+          alert('選択した位置情報を取得できません');
+        }
+        styleInfoWindow();
+        styleNewInfoWindow();
+      });
     });
-  });
+  <% end %>
 
   $('#option-btn').click(function() {
     if (markerArray.length > 0) {

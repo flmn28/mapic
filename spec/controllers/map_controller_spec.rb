@@ -28,6 +28,11 @@ RSpec.describe MapController, type: :controller do
       expect(response).to have_http_status(:success)
     end
 
+    it "do not redirect when user is not logged in" do
+      get :index, params: {}
+      expect(response).to have_http_status(:success)
+    end
+
     it "set @locations correct data" do
       get :index, params: {}, session: valid_session
       expect(assigns(:locations)).to eq [@location1, @location2, @location3, @location4, @location5]
