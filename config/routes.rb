@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get '/top' => 'home#top'
+
   root 'map#index'
   post '/option' => 'map#option'
 

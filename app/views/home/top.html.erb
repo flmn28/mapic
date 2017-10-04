@@ -1,0 +1,75 @@
+<div class="top-wrapper">
+  <div class="top-title-wrapper">
+    <h1 class="top-title">MAPIC</h1>
+
+    <div class="top-title-buttons">
+      <div class="btn-top-wrapper">
+        <%= link_to "ログイン", login_path, class: "top-btn top-login-link" %>
+      </div>
+      <div class="btn-bottom-wrapper">
+        <%= link_to "覗いてみる", root_path, class: "top-btn top-map-link btn-inline" %>
+        <%= link_to "アカウント登録", signup_path, class: "top-btn top-signup-link btn-inline" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="top-item top-intro-wrapper">
+    <h2 class="top-headline">MAPICとは？</h2>
+
+    <div class="top-intro-box">
+      <p>
+        マップの上に写真を投稿していく新しいタイプのSNS。<br>
+        あなたが訪れた場所のステキな写真をみんなにシェアしよう！
+      </p>
+    </div>
+  </div>
+
+  <div class="top-item top-detail-wrawpper">
+    <h2 class="top-headline">なにができるの？</h2>
+
+    <div class="row">
+      <div class="col-sm-1 col-md-2"></div>
+      <div class="col-sm-5 col-md-4">
+        <div class="top-detail-box">
+          <h3 class="top-sm-headline">1.写真をピンにして投稿</h3>
+          <%= image_tag 'tops/top_image1', class: "top-detail-img" %>
+          <p>
+            撮った写真をピンして、思い出を地図に残したり、みんなに見せたりできるよ！<br>
+            みんなが気に入った写真は、「ランキング」に載ることも！？
+          </p>
+        </div>
+      </div>
+
+      <div class="col-sm-5 col-md-4">
+        <div class="top-detail-box">
+          <h3 class="top-sm-headline">2.カンタン操作で行き先探し</h3>
+          <%= image_tag 'tops/top_image2', class: "top-detail-img" %>
+          <p>
+            どこかへ出かけたくなったとき、「タグ」で絞り込んで行き先を探せるよ！<br>
+            気になった場所をいつでも見返せるように、「いいね！」を忘れずに！
+          </p>
+        </div>
+      </div>
+      <div class="col-sm-1 col-md-2"></div>
+    </div>
+  </div>
+
+  <div class="top-item top-prompt-wrapper">
+    <h2 class="top-headline">さあ、始めよう！</h2>
+    <p>サッと登録して使ってみよう！<br>とりあえずMAPを覗いてみることもできるよ！</p>
+  </div>
+
+  <div class="top-foot-wrapper">
+    <div class="top-foot-buttons">
+      <div class="btn-top-wrapper">
+        <%= link_to "覗いてみる", "", class: "top-btn top-map-link btn-inline" %>
+        <%= link_to "アカウント登録", signup_path, class: "top-btn top-signup-link btn-inline" %>
+      </div>
+      <div class="btn-bottom-wrapper">
+        <%= link_to "登録済みの方はこちら", login_path, class: "top-btn  top-login-link" %>
+      </div>
+    </div>
+
+    <p><small>&copy; 2017 MAPIC</small></p>
+  </div>
+</div>

@@ -12,7 +12,11 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <%= link_to "MAPIC", root_path, class: "navbar-brand" %>
+      <% if logged_in? %>
+        <%= link_to "MAPIC", root_path, class: "navbar-brand" %>
+      <% else %>
+        <%= link_to "MAPIC", top_path, class: "navbar-brand" %>
+      <% end %>
     </div>
 
     <div class="collapse navbar-collapse target">

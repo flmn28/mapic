@@ -6,8 +6,7 @@ class ApplicationController < ActionController::Base
   private
     def authenticate_user
       unless session[:user_id]
-        flash[:notice] = "ログインしてください"
-        redirect_to login_path
+        redirect_to top_path
       end
     end
 end
