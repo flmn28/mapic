@@ -1,7 +1,7 @@
-<% if location.errors.any? %>
+<% if @error_messages %>
   <div class="error-box">
     <ul class="error-messages">
-      <% location.errors.messages.values.flatten.each do |message| %>
+      <% @error_messages.each do |message| %>
         <li>・<%= message %></li>
       <% end %>
     </ul>

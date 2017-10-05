@@ -7,10 +7,10 @@ RSpec.describe LocationsController, type: :controller do
   let(:image) { Rack::Test::UploadedFile.new(image_path) }
 
   let(:valid_attributes) {
-    { title: "title1", comment: "comment1", address: "address1", latitude: 36, longitude: 137, image: image }
+    { title: "title1", comment: "comment1", address: "address1", latitude: 36.0, longitude: 137.0, image: image }
   }
   let(:invalid_attributes) {
-    { title: "", comment: "comment1", address: "address1", latitude: 36, longitude: 137, image: image }
+    { title: "", comment: "comment1", address: "address1", latitude: 36.0, longitude: 137.0, image: image }
   }
 
   let(:valid_session) { { user_id: 1 } }
@@ -75,24 +75,64 @@ RSpec.describe LocationsController, type: :controller do
   end
 
   describe "GET #new" do
-    it "returns a success response" do
-      get :new, params: {}, session: valid_session
-      expect(response).to be_success
+    context "when it is not redirected" do
+      subject { get :new, params: {address: 'address', latitude: '35', longitude: '140'}, session: valid_session }
+
+      it "returns a success response" do
+        subject
+        expect(response).to be_success
+      end
+
+      it "receive correct values from params beforehand" do
+        subject
+        expect(assigns(:location).address).to eq 'address'
+        expect(assigns(:location).latitude).to eq 35
+        expect(assigns(:location).longitude).to eq 140
+      end
     end
 
-    it "receive correct values from params beforehand" do
-      get :new, params: {address: 'address', latitude: '35', longitude: '140'}, session: valid_session
-      expect(assigns(:location).address).to eq 'address'
-      expect(assigns(:location).latitude).to eq 35
-      expect(assigns(:location).longitude).to eq 140
+    context "when it is redirected" do
+      subject { get :new, params: {title: "title1", address: 'address', latitude: '35', longitude: '140', errors: ["error1", "error2"]}, session: valid_session }
+
+      it "receive correct values of params from create" do
+        subject
+        expect(assigns(:location).title).to eq 'title1'
+      end
+
+      it "assigns correct error messages" do
+        subject
+        expect(assigns(:error_messages)).to eq ["error1", "error2"]
+      end
     end
   end
 
   describe "GET #edit" do
-    xit "returns a success response" do
-      location = Location.create! valid_attributes
-      get :edit, params: {id: location.to_param}, session: valid_session
-      expect(response).to be_success
+    context "when it is not redirected" do
+      subject { get :edit, params: {id: 1}, session: valid_session }
+
+      it "returns a success response" do
+        subject
+        expect(response).to be_success
+      end
+
+      it "does not replace columns" do
+        subject
+        expect(assigns(:location)).to eq @location1
+      end
+    end
+
+    context "when it is redirected" do
+      subject { get :new, params: {title: "title2", errors: ["error1", "error2"]}, session: valid_session }
+
+      it "replaces columns" do
+        subject
+        expect(assigns(:location).title).to eq "title2"
+      end
+
+      it "assigns correct error messages" do
+        subject
+        expect(assigns(:error_messages)).to eq ["error1", "error2"]
+      end
     end
   end
 
@@ -122,14 +162,19 @@ RSpec.describe LocationsController, type: :controller do
 
       it "redirects to root" do
         post :create, params: {location: valid_attributes}, session: valid_session
-        expect(response).to redirect_to(map_path)
+        expect(response).to redirect_to map_path
       end
     end
 
     context "with invalid params" do
-      it "render new" do
+      it "redirects to new" do
         post :create, params: {location: invalid_attributes}, session: valid_session
-        expect(response).to render_template :new
+        expect(response).to redirect_to new_location_path(title: "",
+                                                          comment: "comment1",
+                                                          address: "address1",
+                                                          latitude: 36.0,
+                                                          longitude: 137.0,
+                                                          errors: ["タイトルを入力してください"])
       end
     end
   end
@@ -164,10 +209,11 @@ RSpec.describe LocationsController, type: :controller do
     end
 
     context "with invalid params" do
-      xit "returns a success response (i.e. to display the 'edit' template)" do
-        location = Location.create! valid_attributes
-        put :update, params: {id: location.to_param, location: invalid_attributes}, session: valid_session
-        expect(response).to be_success
+      it "redirect to edit" do
+        put :update, params: {id: 1, location: invalid_attributes}, session: valid_session
+        expect(response).to redirect_to edit_location_path(title: "",
+                                                           comment: "comment1",
+                                                           errors: ["タイトルを入力してください"])
       end
     end
   end

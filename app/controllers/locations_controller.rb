@@ -36,12 +36,17 @@ class LocationsController < ApplicationController
   end
 
   def new
-    @location = Location.new(address: params[:address],
+    @location = Location.new(title: params[:title],
+                             comment: params[:comment],
+                             address: params[:address],
                              latitude: params[:latitude],
                              longitude: params[:longitude])
+    @error_messages = params[:errors]
   end
 
   def edit
+    @location.assign_attributes(title: params[:title], comment: params[:comment]) if params[:errors]
+    @error_messages = params[:errors]
   end
 
   def create
@@ -55,7 +60,12 @@ class LocationsController < ApplicationController
         format.json { render :show, status: :created, location: @location }
       else
         modify_image_error_message
-        format.html { render :new }
+        format.html { redirect_to new_location_path(title: @location.title,
+                                                    comment: @location.comment,
+                                                    address: @location.address,
+                                                    latitude: @location.latitude,
+                                                    longitude: @location.longitude,
+                                                    errors: @location.errors.messages.values.flatten) }
         format.json { render json: @location.errors, status: :unprocessable_entity }
       end
     end
@@ -71,7 +81,9 @@ class LocationsController < ApplicationController
         format.json { render :show, status: :ok, location: @location }
       else
         modify_image_error_message
-        format.html { render :edit }
+        format.html { redirect_to edit_location_path(title: @location.title,
+                                                     comment: @location.comment,
+                                                     errors: @location.errors.messages.values.flatten) }
         format.json { render json: @location.errors, status: :unprocessable_entity }
       end
     end
