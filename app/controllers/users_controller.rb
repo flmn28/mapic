@@ -134,11 +134,4 @@ class UsersController < ApplicationController
         @user.errors.messages[:password].push('パスワードが一致していません')
       end
     end
-
-    def redirect_to_top_when_logged_in
-      if session[:user_id]
-        flash[:danger] = "既にログインしています"
-        redirect_to map_path
-      end
-    end
 end
