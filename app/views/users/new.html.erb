@@ -14,3 +14,11 @@
 </div>
 
 <%= link_to '登録済みの方はこちら', login_path, class: "btn btn-default btn-block btn-change-form" %>
+
+<% if @user.errors.any? %>
+  <script>
+    $(document).ready(function() {
+      history.replaceState('', '', '/signup');
+    });
+  </script>
+<% end %>

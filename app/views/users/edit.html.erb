@@ -17,3 +17,11 @@
 <div class="edit-back-btn-wrapper">
   <span class="btn btn-default back-btn pc-back-btn">戻る</span>
 </div>
+
+<% if @user.errors.any? %>
+  <script>
+    $(document).ready(function() {
+      history.replaceState('', '', location.href + '/edit');
+    });
+  </script>
+<% end %>
