@@ -8,7 +8,11 @@
     zoom: 15,
     center: latLng,
     mapTypeId: google.maps.MapTypeId.ROADMAP,
-    mapTypeControl: false
+    mapTypeControl: false,
+    styles: [
+      {featureType: 'road.highway', elementType: 'geometry.fill', stylers: [{weight: '0.70'}]},
+      {featureType: 'transit.line', elementType: 'geometry.fill', stylers: [{weight: '0.60'}]}
+    ]
   }
   var map = new google.maps.Map(document.getElementById('map'), options);
 
