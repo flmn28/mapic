@@ -14,20 +14,13 @@ class LocationsController < ApplicationController
   end
 
   def ranking_option
-    params_array = Tag.all.pluck(:id).map { |id| params["tag" + id.to_s] }
-
+    params_array = Tag.all.map { |tag| params["tag" + tag.id.to_s] }
     ranked_location_ids = Like.group(:location_id).order('count_location_id DESC').limit(100).count(:location_id).keys
-
-    if params_array == Array.new(params_array.count)
-      return @locations = ranked_location_ids.map { |id| Location.find_by(id: id) }
-    end
+    return @locations = ranked_location_ids.map { |id| Location.find_by(id: id) } if params_array == Array.new(params_array.count)
 
     tagged_location_ids_array = []
     params_array.each_with_index do |param, i|
-      if param
-        ids = Tag.find_by(id: i + 1).locations.pluck(:id)
-        tagged_location_ids_array.concat(ids)
-      end
+      tagged_location_ids_array.concat(Tag.find_by(id: i + 1).locations.pluck(:id)) if param
     end
     tagged_location_ids = tagged_location_ids_array.uniq
 
