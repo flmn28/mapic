@@ -18,24 +18,7 @@ class UsersController < ApplicationController
   def mypage_option
     params_array = Tag.all.map { |tag| params["tag" + tag.id.to_s] }
     @title = params[:condition] == "1" ? "#{current_user.name}さんの投稿" : "いいねした投稿"
-
-    if params_array == Array.new(params_array.count) && params[:condition] == "1"
-      return @locations = current_user.locations.order(created_at: :desc)
-    elsif params_array == Array.new(params_array.count) && params[:condition] == "2"
-      return @locations = current_user.like_locations.order(created_at: :desc)
-    end
-
-    selected_location_ids = params[:condition] == "1" ? current_user.locations.pluck(:id) : current_user.like_locations.pluck(:id)
-
-    tagged_location_ids_array = []
-    params_array.each_with_index do |param, i|
-      tagged_location_ids_array.concat(Tag.find_by(id: i + 1).locations.pluck(:id)) if param
-    end
-    tagged_location_ids = tagged_location_ids_array.uniq
-
-    location_ids = selected_location_ids & tagged_location_ids
-    unsorted_locations = location_ids.map { |id| Location.find_by(id: id) }
-    @locations = unsorted_locations.sort_by { |location| location.created_at }.reverse!
+    @locations = Location.select_by_mypage_option(params[:condition], params_array, current_user)
   end
 
   def new
